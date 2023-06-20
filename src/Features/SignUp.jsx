@@ -1,4 +1,32 @@
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { toast } from "react-toastify"
+
 export const SignUp = () => {
+    const signformValue = {
+        email : '',
+        password : '',
+        firstName : '',
+        username : ''
+    }
+    const [signForm , setSignForm] = useState(signformValue)
+
+    const filFormValue = (e , fieldName) => {
+        setSignForm((prev)=> ({...prev, [fieldName] : e.target.value }))
+    }
+
+    const saveSignForm = (e)=>{
+        e.preventDefault()
+        const {  email ,
+        password ,
+        firstName ,
+        username,  confirmPassword } = signForm
+        if(password !== confirmPassword) {
+             toast.error('plaese password must be same')
+        }else if(email && password && firstName && username){
+            console.log(signForm)
+        }
+    }
     return (
            <>
             <div className="flex flex-column flex-center h-full w-full">
@@ -6,72 +34,84 @@ export const SignUp = () => {
                     <span className="primary-color">My</span> Website
                 </h2>
                 <div className="white-bg br-m p-xxl pt-l pb-l" style={{width : '30rem'}} >
-                    <h3 className="txt-center mb-s txt-l">Signup</h3>
+                   <form  onSubmit={(e)=> saveSignForm(e)}>
+                   <h3 className="txt-center mb-s txt-l">Signup</h3>
                     <div className="flex flex-column">
-                        <label for="name" className="txt-s">Full Name</label>
+                        <label className="txt-s">Full Name</label>
                         <input
                             type="text"
-                            name="name"
+                            name="firstName"
                             className="p-xs txt-s lynx-white-color br-s mb-s "
-                            style={{border : '1px solid grey'}}
+                            style={{border : '1px solid grey', color : 'black'}}
+                            required
                             placeholder="Tanay Pratap"
+                            onChange={(e)=> filFormValue(e, 'firstName')}
                         />
                     </div>
                     <div className="flex flex-column">
-                        <label for="username">Username</label>
+                        <label >Username</label>
                         <input
                             type="text"
                             name="username"
                             className="p-xs txt-s lynx-white-color br-s mb-s "
-                            style={{border : '1px solid grey'}}
+                            style={{border : '1px solid grey', color : 'black'}}
+                            required
                             placeholder="tanaypratap"
+                            onChange={(e)=> filFormValue(e, 'username')}
                         />
                     </div>
                     <div className="flex flex-column">
-                        <label for="email">Email Address</label>
+                        <label >Email Address</label>
                         <input
-                            type="text"
+                            type="email"
                             name="email"
                             className="p-xs txt-s lynx-white-color br-s mb-s "
-                            style={{border : '1px solid grey'}}
+                            style={{border : '1px solid grey', color : 'black'}}
+                            required
                             placeholder="tanay@neog.camp"
+                            onChange={(e)=> filFormValue(e, 'email')}
                         />
                     </div>
                     <div className="flex flex-column">
-                        <label for="password">Password</label>
+                        <label>Password</label>
                         <input
                             type="password"
                             name="password"
                             className="p-xs txt-s lynx-white-color br-s flex mb-s items-center "
-                            style={{border : '1px solid grey'}}
+                            style={{border : '1px solid grey', color : 'black'}}
+                            required
                             placeholder="************"
+                            onChange={(e)=> filFormValue(e, 'password')}
                         />
                     </div>
                     <div className="flex flex-column">
-                        <label for="password">Confirm Password</label>
+                        <label>Confirm Password</label>
                         <input
                             type="password"
-                            name="password"
+                            name="confirmPassword"
                             className="p-xs txt-s lynx-white-color br-s flex items-center "
-                            style={{border : '1px solid grey'}}
+                            style={{border : '1px solid grey', color : 'black'}}
+                            required
                             placeholder="************"
+                            onChange={(e)=> filFormValue(e, 'confirmPassword')}
                         />
                     </div>
                     <div className="flex flex-align-center flex-space-between mt-m mb-m">
                         <div className="txt-s flex flex-align-center">
-                            <input className="p-s txt-cursor" type="checkbox" name="rmbr-me" id="" />
-                            <label className="pl-xs txt-cursor" for="rmbr-me">I accept all Terms & Conditions</label>
+                            <input className="p-s txt-cursor" type="checkbox" required name="rmbr-me" id="" />
+                            <label className="pl-xs txt-cursor" >I accept all Terms & Conditions</label>
                         </div>
 
                     </div>
-                    <button
+                    <button type="submit"
                         className="w-full primary-bg white-color p-s outline-transparent border-none pt-xs pb-xs txt-s"
                     >
                         Create New Account
                     </button>
-                    <a href="#" className="txt-center w-full mt-m" style={{display : 'block'}}
-                    >Already have an account </a
-                    >
+                    <Link to='/login' className="txt-center w-full mt-m" style={{display : 'block'}}
+                    >Already have an account 
+                    </Link>
+                   </form>
                 </div>
             </div>
            </>

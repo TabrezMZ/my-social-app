@@ -10,10 +10,13 @@ import { Profile } from './Features/Profile';
 import { Explore } from './Features/Explore';
 import { Bookmark } from './Features/BookMark';
 import { Posts } from './Features/Posts';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div className='container'>
+       <ToastContainer />
      { true && <Navbar/>}
       <Routes>
         <Route path='/signup' element={<SignUp/>}  />
