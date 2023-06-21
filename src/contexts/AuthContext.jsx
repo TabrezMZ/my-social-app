@@ -26,7 +26,7 @@ export const AuthContextProvider = ({children}) => {
     const signUpUser = async (email , password, firstName, username) => {
        try {
         const { data : {foundUser, encodedToken}, status } = await loginService(email,password, firstName, username)
-        if(status === 200) {
+        if(status === 201) {
             localStorage.setItem("login", JSON.stringify({ token: encodedToken }));
             setAuthToken(encodedToken)
             localStorage.setItem("user", JSON.stringify({ user: foundUser }));

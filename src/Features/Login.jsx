@@ -42,7 +42,9 @@ export const Login = () => {
                                 style={{ border: '1px solid grey', color: 'black' }}
                                 placeholder="tanay@neog.camp"
                                 required
-                                onChange={(e) => filFormValue(e, 'username')}
+                                onChange={(e) => {
+                                    if (/[^a-zA-Z\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                    filFormValue(e, 'username')}}
                             />
                         </div>
                         <div className="flex flex-column">
@@ -55,7 +57,9 @@ export const Login = () => {
                                 style={{ border: '1px solid grey', color: 'black' }}
                                 placeholder="************"
                                 required
-                                onChange={(e) => filFormValue(e, 'password')}
+                                onChange={(e) => {
+                                    if (/[^a-zA-Z0-9\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z0-9\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                    filFormValue(e, 'password')}}
                             />
                         </div>
                         <div className="flex flex-align-center flex-space-between mt-m mb-m">

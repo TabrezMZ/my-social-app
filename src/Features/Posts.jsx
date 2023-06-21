@@ -1,4 +1,18 @@
+import { getAllPost } from "../services/PostService"
+
 export const Posts = () => {
+
+    // const getPosts = async () => {
+    //     try {
+    //         const {data : {posts} , status} = await getAllPost()
+    //         console.log(posts, status)
+    //     } catch (error) {
+            
+    //     }
+    // }
+
+    // const Posts = getPosts()
+
     return (
         <>
             <main className="mr-l h-full white-bg">

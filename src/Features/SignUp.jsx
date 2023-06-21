@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
+import { signUpService } from "../services/AuthService"
 
 export const SignUp = () => {
     const signformValue = {
@@ -24,7 +25,7 @@ export const SignUp = () => {
         if(password !== confirmPassword) {
              toast.error('plaese password must be same')
         }else if(email && password && firstName && username){
-            console.log(signForm)
+            signUpService(email , password, firstName, username)
         }
     }
     return (
@@ -45,7 +46,10 @@ export const SignUp = () => {
                             style={{border : '1px solid grey', color : 'black'}}
                             required
                             placeholder="Tanay Pratap"
-                            onChange={(e)=> filFormValue(e, 'firstName')}
+                            onChange={(e)=> {
+                                if (/[^a-zA-Z\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                filFormValue(e, 'firstName')
+                            }}
                         />
                     </div>
                     <div className="flex flex-column">
@@ -57,7 +61,9 @@ export const SignUp = () => {
                             style={{border : '1px solid grey', color : 'black'}}
                             required
                             placeholder="tanaypratap"
-                            onChange={(e)=> filFormValue(e, 'username')}
+                            onChange={(e)=> {
+                                 if (/[^a-zA-Z\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                 filFormValue(e, 'username')}}
                         />
                     </div>
                     <div className="flex flex-column">
@@ -69,7 +75,9 @@ export const SignUp = () => {
                             style={{border : '1px solid grey', color : 'black'}}
                             required
                             placeholder="tanay@neog.camp"
-                            onChange={(e)=> filFormValue(e, 'email')}
+                            onChange={(e)=> {
+                                filFormValue(e, 'email')
+                            }}
                         />
                     </div>
                     <div className="flex flex-column">
@@ -81,7 +89,9 @@ export const SignUp = () => {
                             style={{border : '1px solid grey', color : 'black'}}
                             required
                             placeholder="************"
-                            onChange={(e)=> filFormValue(e, 'password')}
+                            onChange={(e)=> {
+                                if (/[^a-zA-Z0-9\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z0-9\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                filFormValue(e, 'password')}}
                         />
                     </div>
                     <div className="flex flex-column">
@@ -93,7 +103,9 @@ export const SignUp = () => {
                             style={{border : '1px solid grey', color : 'black'}}
                             required
                             placeholder="************"
-                            onChange={(e)=> filFormValue(e, 'confirmPassword')}
+                            onChange={(e)=> {
+                                if (/[^a-zA-Z0-9\s]/g.test(e.target.value)) {e.target.value=e.target.value.replace(/[^a-zA-Z0-9\s]/g,'')} if(e.target.value.trim().length==0) e.target.value=''
+                                filFormValue(e, 'confirmPassword')}}
                         />
                     </div>
                     <div className="flex flex-align-center flex-space-between mt-m mb-m">
