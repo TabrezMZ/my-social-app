@@ -64,7 +64,7 @@ export const Login = () => {
                         </div>
                         <div className="flex flex-align-center flex-space-between mt-m mb-m">
                             <div className="txt-s flex flex-align-center">
-                                <input className="p-s txt-cursor" required type="checkbox" name="rmbr-me" id="" />
+                                <input className="p-s txt-cursor" required type="checkbox" checked readOnly name="rmbr-me" id="" />
                                 <label className="pl-xs txt-cursor" >Remember Me</label>
                             </div>
                             <a href="#" className="action-color">Forgot your password?</a>
@@ -73,6 +73,13 @@ export const Login = () => {
                             className="w-full primary-bg white-color p-s outline-transparent border-none pt-xs pb-xs txt-s"
                         >
                             Login
+                        </button>
+                        <br/>
+                        <br/>
+                        <button type="button" onClick={()=> setLoginForm({...loginForm , username : 'adarshbalika' , password : 'adarshBalika123'})}
+                            className="w-full primary-bg white-color p-s outline-transparent border-none pt-xs pb-xs txt-s"
+                        >
+                            Guest Login
                         </button>
                         <Link to='/signup' className="txt-center w-full mt-m" style={{ display: 'block' }}
                         >Create New Account

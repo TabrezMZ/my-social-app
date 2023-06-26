@@ -32,6 +32,12 @@ export const Navbar = () => {
                             </Link>
                         </div>
                         <div className="pt-s black-color fw-semibold">
+                            <Link to='/likes' >
+                                <i className="bi bi-bookmark"></i> &nbsp;
+                                <span>Liked Posts</span>
+                            </Link>
+                        </div>
+                        <div className="pt-s black-color fw-semibold">
                             <Link to='/profile'>
                                 <i className="bi bi-person"></i> &nbsp;
                                 <span>Profile</span>

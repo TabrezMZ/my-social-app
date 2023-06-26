@@ -12,6 +12,7 @@ import { Bookmark } from './pages/BookMark';
 import { Posts } from './Features/Posts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { LikedPost } from './pages/LikedPost';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/home' element={<Home/>}  />
         <Route path='/explore' element={<Explore/>}  />
         <Route path='/bookmark' element={<Bookmark/>}  />
+        <Route path='/likes' element={<LikedPost/>}  />
         <Route path='/posts' element={<Posts/>}  />
         <Route path='/profile' element={<Profile/>}  />
       </Routes>

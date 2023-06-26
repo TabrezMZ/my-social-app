@@ -902,3 +902,9 @@ main {
 .green-color {
   color: #34d399;
 }
+
+
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
