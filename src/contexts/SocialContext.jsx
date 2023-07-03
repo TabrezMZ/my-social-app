@@ -1,16 +1,12 @@
 import { createContext, useContext, useReducer, useState } from "react";
-import { loginService } from "../services/AuthService";
-import { SocialReducer, initialState } from "../reducer/SocialReducer";
 
+const SocialDataContext = createContext()
 
- const SocialContext = createContext()
-
-export const SocialContextProvider = ({children}) => {
-   const [Data , dispatch] = useReducer(SocialReducer, initialState)
+export const SocialDataProvider = ({children}) => {
 
     return(
-        <SocialContext.Provider value={{Data , dispatch}} >{children}</SocialContext.Provider>
+        <SocialDataContext.Provider value={{item : 3}} >{children}</SocialDataContext.Provider>
     )
 }
 
-export const useData = () => useContext(SocialContext)
+export const useData = () => useContext(SocialDataProvider)
