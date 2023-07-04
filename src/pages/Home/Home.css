@@ -1,0 +1,97 @@
+.home-page-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 48px;
+  }
+  .home-page-container .sidebar-box {
+    padding: 0.25rem 0.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 8;
+    background-color: var(--clr-background);
+    border-top: 1px solid var(--clr-border);
+  }
+  .home-page-container .body-box {
+    flex-basis: 100%;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .home-page-container .profile-box {
+    display: none;
+    flex-basis: 20%;
+    padding: 0.5rem;
+    align-self: stretch;
+    background-color: var(--clr-background);
+  }
+  .body-box > h1 {
+    font-size: var(--fs-400);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .post-cards-box {
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .empty-posts {
+    font-size: var(--fs-300);
+    line-height: 1;
+    text-align: center;
+    font-weight: 700;
+  }
+  @media (min-width: 768px) {
+    .home-page-container {
+      width: 100%;
+    }
+    .home-page-container .sidebar-box {
+      flex-basis: 20%;
+      padding: 0.5rem;
+      top: 56px;
+      left: auto;
+      right: auto;
+      border-top: none;
+    }
+    .home-page-container .body-box {
+      flex-basis: calc(100% - 50px);
+      margin-left: 50px;
+      gap: 1rem;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .home-page-container .body-box {
+      flex-basis: calc(100% - 200px);
+      margin-left: 200px;
+    }
+    .home-page-container .sidebar-box {
+      width: 200px;
+    }
+  }
+  
+  @media screen and (min-width: 1200px) {
+    .home-page-container {
+      padding: 0 0.5rem;
+      position: relative;
+    }
+    .home-page-container .body-box {
+      min-height: calc(100vh - 48px);
+      border: 1px solid var(--clr-border);
+    }
+    .home-page-container .profile-box {
+      display: block;
+      position: sticky;
+      align-self: flex-start;
+      top: 48.5px;
+      height: calc(100vh - 48.5px);
+    }
+  }
+  

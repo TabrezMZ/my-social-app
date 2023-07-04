@@ -1,13 +1,18 @@
-import { Route, Routes } from "react-router-dom"
-import { Login, Signup, Welcome } from "../pages"
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom"
+import { Home, Login, Signup, Welcome } from "../pages"
+import { useAuth } from "../contexts/AuthContext"
+import { AuthRoute } from "./AuthRoute"
 
 export const AppRoutes = () => {
+    const navigate = useNavigate()
+    const {token} = useAuth()
     return(
         <>
         <Routes>
-            <Route path="/" element={<Welcome/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/signup" element={<Signup/>} />
+            <Route path="/welcome" element={ token ? <Navigate to='/' /> : <Welcome/>} />
+            <Route path="/login" element={token ? <Navigate to='/' />  :<Login/>} />
+            <Route path="/signup" element={ token ? <Navigate to='/'/>: <Signup/>} />
+            <Route path="/" element={ <AuthRoute><Home/></AuthRoute> } />
         </Routes>
         </>
     )
