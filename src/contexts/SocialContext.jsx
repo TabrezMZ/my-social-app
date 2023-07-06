@@ -8,12 +8,13 @@ const SocialDataContext = createContext()
 
 export const SocialDataProvider = ({children}) => {
     const {token} = useAuth()
-    const {allData , dataDispatch} = useReducer(DataReducer, initialData)
+    const {dataState , dataDispatch} = useReducer(DataReducer, initialData)
+   
   
     const getAllPost = async () => {
         try {
             const res = await getAllPostsService()
-            console.log(res);
+            dataDispatch({type : 'SET_POSTS', payload : res.dara.users})
         } catch (error) {
             console.log("Error in get all post", error);
         }
@@ -21,6 +22,7 @@ export const SocialDataProvider = ({children}) => {
     const getAllUser = async () => {
         try {
             const res = await getAllUserService()
+            dataDispatch({type : 'SET_USERS', payload : res.dara.users})
             console.log(res);
         } catch (error) {
             console.log("Error in get all post", error);
@@ -32,7 +34,7 @@ export const SocialDataProvider = ({children}) => {
        getAllUser()
     },[])
     return(
-        <SocialDataContext.Provider value={{allData , dataDispatch}} >{children}</SocialDataContext.Provider>
+        <SocialDataContext.Provider value={{dataState , dataDispatch}} >{children}</SocialDataContext.Provider>
     )
 }
 

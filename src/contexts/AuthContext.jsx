@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { loginService } from "../services/AuthService";
+import { loginService, signUpService } from "../services/AuthService";
 
 
  const AuthContext = createContext()
@@ -9,6 +9,9 @@ export const AuthContextProvider = ({children}) => {
     const [token , setAuthToken] = useState(localStorageToken?.token);
     const localStorageUser = JSON.parse(localStorage.getItem("user"));
     const [userData, setUserData] = useState(localStorageUser?.user);
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem("theme") === "dark" ? true : false
+      );
 
     const loginUser = async (username , password) => {
        try {
@@ -23,9 +26,9 @@ export const AuthContextProvider = ({children}) => {
         console.log("Error in login user", error);
        }
     }
-    const signUpUser = async (email , password, firstName, username) => {
+    const signUpUser = async (SignupData) => {
        try {
-        const { data : {foundUser, encodedToken}, status } = await loginService(email,password, firstName, username)
+        const { data : {foundUser, encodedToken}, status } = await signUpService(SignupData)
         if(status === 201) {
             localStorage.setItem("login", JSON.stringify({ token: encodedToken }));
             setAuthToken(encodedToken)
@@ -38,7 +41,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     return(
-        <AuthContext.Provider value={{loginUser, token , userData,  signUpUser}} >{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{loginUser, token , userData,  signUpUser, darkMode, setDarkMode}} >{children}</AuthContext.Provider>
     )
 }
 

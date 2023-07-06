@@ -3,16 +3,17 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import loginImg from '../../assets/iShareSignup.png'
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import './SignUp.css'
 
 export const Signup = () => {
     const navigate = useNavigate()
-    const {signUpUser} = useAuth()
+    const { signUpUser, darkMode } = useAuth()
     const [SignupData, setSignupData] = useState({
         firstName: '',
         lastName: '',
         username: '',
-        username: '',
-        password: ''
+        email: '',
+        password: '',
     })
     const [hidePwd, setHidePwd] = useState({ pwd: true, confirmPwd: true })
     const [signupBtnDisabled, setSignupBtnDisabled] = useState(false)
@@ -26,136 +27,184 @@ export const Signup = () => {
         e.preventDefault();
     }
 
-    useEffect(()=> {
-        if(SignupData.password !== '' && confirmPassword !== ''){
+    useEffect(() => {
+        if (SignupData.password !== '' && confirmPassword !== '') {
             setPwdMatch(SignupData.password === confirmPassword)
         }
     }, [SignupData.password, confirmPassword])
 
     return (
         <>
-            <div className="login">
-                <div className="login-img">
-                    <img src={loginImg} alt="ishare-login" />
-                </div>
-                <div className="login-container">
-                    <h1>Signup</h1>
-                    <form onSubmit={(e) => signupHandler(e)} className="login-form">
-                        <div className="login-field">
-                            <label htmlFor="firstName">
-                                First Name<span>*</span>
+            <div className={`signup-container ${darkMode && "bgDarkmode"}`}>
+                <div className={`signup ${darkMode && "bgSecondaryDarkMode"}`}>
+                    <h2>Sign Up</h2>
+                    <form onSubmit={(e) => signupHandler(e)}>
+                        <div className="name">
+                            <div>
+                                <label for="first-name">
+                                    First Name <span>*</span>
+                                </label>
+                                <input
+                                    className={`${darkMode && "bgDarkmode"}`}
+                                    id="first-name"
+                                    placeholder="Test"
+                                    required
+                                    value={SignupData.firstName}
+                                    onChange={(e) =>
+                                        setSignupData((prev) => ({
+                                            ...prev,
+                                            firstName: e.target.value,
+                                        }))
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <label for="last-name">
+                                    Last Name <span>*</span>
+                                </label>
+                                <input
+                                    className={`${darkMode && "bgDarkmode"}`}
+                                    id="last-name"
+                                    placeholder="Admin"
+                                    required
+                                    value={SignupData.lastName}
+                                    onChange={(e) =>
+                                        setSignupData((prev) => ({
+                                            ...prev,
+                                            lastName: e.target.value,
+                                        }))
+                                    }
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="username">
+                                Username <span>*</span>
                             </label>
                             <input
-                                type="text"
-                                id="firstName"
-                                name="firstName"
-                                value={SignupData?.firstName}
+                                className={`${darkMode && "bgDarkmode"}`}
+                                id="username"
+                                placeholder="testadmin"
+                                required
+                                value={SignupData.username}
                                 onChange={(e) =>
                                     setSignupData((prev) => ({
                                         ...prev,
-                                        firstName: e.target.value,
+                                        username: e.target.value,
                                     }))
                                 }
-                                required
                             />
                         </div>
-                        <div className="login-field">
-                            <label htmlFor="lastName">
-                                Last Name<span>*</span>
+
+                        <div>
+                            <label for="email">
+                                Email <span>*</span>
                             </label>
                             <input
-                                type="text"
-                                id="lastName"
-                                name="lastName"
-                                value={SignupData?.lastName}
-                                onChange={(e) =>
-                                    setSignupData((prev) => ({ ...prev, lastName: e.target.value }))
-                                }
+                                className={`${darkMode && "bgDarkmode"}`}
+                                id="email"
+                                placeholder="test@gmail.com"
                                 required
-                            />
-                        </div>
-                        <div className="login-field">
-                            <label htmlFor="username">
-                                Username<span>*</span>
-                            </label>
-                            <input
-                                type="text"
-                                id="username"
-                                name="username"
-                                value={SignupData?.username}
+                                type="email"
+                                value={SignupData.email}
                                 onChange={(e) =>
-                                    setSignupData((prev) => ({ ...prev, username: e.target.value }))
-                                }
-                                required
-                            />
-                        </div>
-                        <div className="login-field">
-                            <label htmlFor="password">
-                                Password<span>*</span>
-                            </label>
-                            <input
-                                type={hidePwd?.pwd ? "password" : "text"}
-                                id="password"
-                                name="password"
-                                value={SignupData?.password}
-                                onChange={(e) =>
-                                    setSignupData((prev) => ({ ...prev, password: e.target.value }))
-                                }
-                                required
-                            />
-                            <span
-                                onClick={() =>
-                                    setHidePwd((prev) => ({
+                                    setSignupData((prev) => ({
                                         ...prev,
-                                        pwd: !hidePwd?.pwd,
+                                        email: e.target.value,
                                     }))
                                 }
-                            >
-                                {hidePwd?.pwd ? <FaEye /> : <FaEyeSlash />}
-                            </span>
-                        </div>
-                        <div className="login-field">
-                            <label htmlFor="confirmPassword">
-                                Confirm Password<span>*</span>
-                            </label>
-                            <input
-                                type={hidePwd?.confirmPwd ? "password" : "text"}
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                value={confirmPassword}
-                                onChange={(e) => {
-                                    setConfirmPassword(e.target.value);
-                                }}
-                                required
                             />
-                            <span
-                                onClick={() =>
+                        </div>
+
+                        <div>
+                            <label for="password">
+                                Password <span>*</span>
+                            </label>
+                            <div className="password-wrapper">
+                                <input
+                                    className={`${darkMode && "bgDarkmode"}`}
+                                    id="password"
+                                    type={hidePwd?.pwd ? "password" : "text"}
+                                    placeholder={hidePwd?.pwd ? "********" : "Enter password"}
+                                    minlength="4"
+                                    maxlength="10"
+                                    required
+                                    value={SignupData.password}
+                                    onChange={(e) =>
+                                        setSignupData((prev) => ({
+                                            ...prev,
+                                            password: e.target.value,
+                                        }))
+                                    }
+                                />
+                                <span
+                                    onClick={() =>
+                                        setHidePwd((prev) => ({
+                                            ...prev,
+                                            pwd: !hidePwd?.pwd,
+                                        }))
+                                    }
+                                >
+                                    {hidePwd?.pwd ? (
+                                        <i className="fa-regular fa-eye-slash"></i>
+                                    ) : (
+                                        <i className="fa-regular fa-eye"></i>
+                                    )}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="confirm-password">
+                                Confirm Password <span>*</span>
+                            </label>
+                            <div className="password-wrapper">
+                                <input
+                                    className={`${darkMode && "bgDarkmode"}`}
+                                    minlength="4"
+                                    maxlength="10"
+                                    id="confirm-password"
+                                    type={hidePwd?.confirmPwd ? "password" : "text"}
+                                    placeholder={
+                                        hidePwd?.confirmPwd ? "********" : "Enter password"
+                                    }
+                                    required
+                                    value={confirmPassword}
+                                    onChange={(e) => {
+                                        setConfirmPassword(e.target.value);
+                                    }}
+                                />
+                                <span
+                                   onClick={() =>
                                     setHidePwd((prev) => ({
                                         ...prev,
                                         confirmPwd: !hidePwd?.confirmPwd,
                                     }))
                                 }
-                            >
-                                {hidePwd?.confirmPwd ? <FaEye /> : <FaEyeSlash />}
-                            </span>
+                                >
+                                    {hidePwd?.confirmPwd ? (
+                                        <i className="fa-regular fa-eye-slash"></i>
+                                    ) : (
+                                        <i className="fa-regular fa-eye"></i>
+                                    )}
+                                </span>
+                            </div>
                             {!pwdMatch ? (
-                                <div className="err-message">Password Do Not Match</div>
+                                <div>Password Do Not Match</div>
                             ) : (
                                 ""
                             )}
                         </div>
-                        <div className="login-btn">
-                            <button type="submit" disabled={!pwdMatch || signupBtnDisabled}>
-                                Signup
-                            </button>
-                        </div>
+
+                        <button type="submit" className="signup-button" disabled={!pwdMatch || signupBtnDisabled}>
+                            Signup
+                        </button>
                     </form>
-                    <div className="login-link">
-                        <p>
-                            Already have an account?{" "}
-                            <span onClick={() => navigate("/login")}>Login</span>
-                        </p>
-                    </div>
+
+                    <p onClick={() => navigate("/login")}>
+                        Already have an account <i className="fa-solid fa-angle-right"></i>
+                    </p>
                 </div>
             </div>
         </>

@@ -7,73 +7,96 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const navigate = useNavigate()
-  const {loginUser} = useAuth()
-  const [loginData , setLoginData] = useState({username : '', password: ''})
-  const [hidePwd , setHidePwd] = useState(true)
-  const [loginBtnDisabled , setLoginBtnDisabled] = useState(false)
+  const { loginUser, darkMode } = useAuth()
+  const [loginData, setLoginData] = useState({ username: '', password: '' })
+  const [hidePwd, setHidePwd] = useState(true)
+  const [loginBtnDisabled, setLoginBtnDisabled] = useState(false)
   const saveLoginHandler = (e) => {
     e.preventDefault();
     console.log(loginData);
     loginUser(loginData)
   }
   const guestLoginHandler = () => {
-    setLoginData({...loginData , username : 'adarshbalika' , password : 'adarshBalika123'})
+    setLoginData({ ...loginData, username: 'adarshbalika', password: 'adarshBalika123' })
   }
   return (
     <>
-      <div className="login">
-        <div className="login-img">
-          <img src={loginImg} alt="ishare-login" />
-        </div>
-        <div className="login-container">
-          <h1>Login</h1>
-          <form onSubmit={(e) => saveLoginHandler(e)} className="login-form">
-            <div className="login-field">
-              <label htmlFor="userName">
+      <div className={`login-container ${darkMode && "bgDarkmode"}`}>
+        <div className={`login ${darkMode && "bgSecondaryDarkMode"}`}>
+          <div className="login-logo">
+            {/* <img src={logo} alt="logo" /> */}
+            <h2>tech-social</h2>
+          </div>
+          <p className="tagline">Social media for programmers</p>
+          <h2>Login</h2>
+          <form  onSubmit={saveLoginHandler} >
+            <div className="login-form-div">
+              <label for="username">
                 Username <span>*</span>
               </label>
               <input
+                className={`${darkMode && "bgDarkmode"}`}
+                id="username"
                 type="text"
-                id="userName"
-                value={loginData?.username}
+                placeholder="testadmin"
+                required
+                value={loginData.username}
                 onChange={(e) =>
                   setLoginData((prev) => ({ ...prev, username: e.target.value }))
                 }
-                required
               />
             </div>
-            <div className="login-field">
-              <label htmlFor="password">
+
+            <div className="login-form-div">
+              <label for="password">
                 Password <span>*</span>
               </label>
-              <input
-                type={hidePwd ? "password" : "text"}
-                id="password"
-                value={loginData?.password}
-                onChange={(e) =>
-                  setLoginData((prev) => ({ ...prev, password: e.target.value }))
-                }
-                required
-              />
-              <span onClick={() => setHidePwd(!hidePwd)}>
-                {hidePwd ? <FaEye /> : <FaEyeSlash />}
-              </span>
+              <div className="password-wrapper">
+                <input
+                  className={`${darkMode && "bgDarkmode"}`}
+                  minlength="4"
+                  maxlength="10"
+                  id="password"
+                  type={hidePwd ? "password" : "text"}
+                  placeholder={hidePwd ? "********" : "Enter password"}
+                  required
+                  value={loginData.password}
+                  onChange={(e) =>
+                    setLoginData((prev) => ({ ...prev, password: e.target.value }))
+                  }
+                />
+                <span
+                  onClick={() =>
+                    setHidePwd((hidePwd) => !hidePwd)
+                  }
+                >
+                  {hidePwd ? (
+                    <i className="fa-regular fa-eye-slash"></i>
+                  ) : (
+                    <i className="fa-regular fa-eye"></i>
+                  )}
+                </span>
+              </div>
             </div>
-            <div className="login-btn">
-              <button type="submit" disabled={loginBtnDisabled}>
-                Login
-              </button>
-              <button type="button" onClick={guestLoginHandler} disabled={loginBtnDisabled}>
-                Guest Login
-              </button>
-            </div>
+
+            <button type="submit" className="login-button" >
+              Login
+            </button>
+            <button
+              type="button"
+              className="login-button guest"
+              onClick={guestLoginHandler}
+            >
+              Login As Guest
+            </button>
           </form>
-          <div className="login-link">
-            <p>
-              Don't have an account?{" "}
-              <span onClick={() => navigate("/signup")}>SignUp</span>
-            </p>
-          </div>
+
+          <p
+            onClick={() => navigate("/signup")}
+            className="create-new-account-link"
+          >
+            Create New account <i className="fa-solid fa-angle-right"></i>
+          </p>
         </div>
       </div>
     </>

@@ -1,57 +1,56 @@
-.suggested-user-profile-box {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background-color: var(--clr-background);
-  }
-  .suggested-user-profile-box > h1 {
-    font-size: var(--fs-400);
-    line-height: 1;
-    font-weight: 700;
-  }
-  .suggested-user-profile {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0.5rem;
+.suggested-users-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.suggested-users-main .suggested-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.suggested-users-main .suggested-user .suggested-user-name-profile {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+.suggested-users-main .suggested-user .user-avatar {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.suggested-users-main .suggested-user .suggestedUser-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggested-users-main .suggested-user button {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--white-color);
+  cursor: pointer;
+  padding: 10px 25px;
+  font-family: "Poppins", sans-serif;
+}
+
+.suggested-users-main .suggested-user button:hover {
+  background-color: var(--primary-dark);
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 601px) {
+  .suggested-users-main .suggested-user {
+    flex-wrap: wrap;
     gap: 0.5rem;
-    background-color: white;
-    border-radius: 0.25rem;
-    border: 1px solid var(--clr-border);
-    cursor: pointer;
+    border: 0.5px solid var(--grey-color);
+    padding: 10px;
   }
-  .suggested-user-profile > span > span {
-    font-size: 1.1rem;
+
+  .suggested-users-main .suggested-user button {
+    width: 100%;
   }
-  
-  .suggested-user-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    flex-grow: 1;
-  }
-  .suggested-user-info span {
-    font-size: 0.8rem;
-    line-height: 1;
-    font-weight: 500;
-  }
-  
-  .suggested-user-info span:last-of-type {
-    font-weight: 400;
-    color: gray;
-  }
-  
-  .suggested-user-profile button {
-    border: none;
-    background-color: var(--clr-primary);
-    color: var(--clr-text);
-    padding: 0.5rem 2rem;
-    font-size: 0.8rem;
-    border-radius: 0.25rem;
-  }
-  
-  .suggested-user-profile > span > img {
-    width: 2rem;
-    height: 2rem;
-  }
-  
+}

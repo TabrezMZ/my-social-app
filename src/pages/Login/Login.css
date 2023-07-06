@@ -1,149 +1,135 @@
+.login-container {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+
 .login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: 0.5rem;
-    max-width: 1000px;
-    margin: 0rem auto;
-    color: var(--clr-text);
-    padding: 1rem;
-    background-color: white;
+  padding: 5px 30px;
+  width: 70%;
+  max-width: 25rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+.login .tagline {
+  font-size: 14px;
+}
+
+.login h2 {
+  text-align: center;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.login-logo img {
+  height: 60px;
+}
+
+.login-logo h2 {
+  color: var(--primary-dark);
+  font-style: italic;
+}
+
+.login p {
+  text-align: center;
+  margin: 0;
+}
+
+.login-form-div {
+  margin: 10px 0;
+}
+
+.login input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid var(--grey-color);
+  margin: 5px 0;
+}
+
+.login label span {
+  color: var(--red-color);
+}
+
+.login input:focus {
+  border: 1px solid var(--primary-color);
+}
+
+.login-button {
+  width: 100%;
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--white-color);
+  padding: 8px;
+  margin: 10px 0;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+
+.login-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.login-button.guest {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-dark);
+  padding: 7px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.login-button.guest:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.password-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.password-wrapper span {
+  position: absolute;
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  padding-right: 0.5rem;
+  cursor: pointer;
+}
+
+.create-new-account-link {
+  padding: 10px 0 20px 0;
+}
+
+.create-new-account-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .login {
+    width: 50%;
   }
-  
-  .login-img {
-    width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .login {
+    width: 35%;
   }
-  .login-img > img {
-    width: 100%;
-    display: block;
-  }
-  .login-container {
-    width: 100%;
-    border: 1px solid var(--clr-border);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-  }
-  .login-container > h1 {
-    font-size: var(--fs-500);
-    text-align: center;
-    font-weight: 700;
-    align-self: center;
-  }
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 100%;
-  }
-  .login-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    width: 100%;
-    position: relative;
-  }
-  .login-field > label {
-    display: block;
-    font-size: var(--fs-300);
-  }
-  .login-field > label > span {
-    color: rgb(255, 0, 55);
-    padding: 0.25rem 0;
-  }
-  .login-field > input {
-    display: block;
-    font-size: var(--fs-300);
-    padding: 0.5rem;
-    outline: none;
-    border: 1px solid rgb(190, 190, 190);
-    border-radius: 0.25rem;
-  }
-  .login-field > span {
-    position: absolute;
-    top: 1.5rem;
-    right: 0.25rem;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4rem 0.5rem;
-    cursor: pointer;
-  }
-  .login-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-    padding: 0.5rem 0;
-  }
-  
-  .login-btn > button {
-    display: block;
-    font-size: var(--fs-300);
-    font-weight: 500;
-    padding: 0.5rem;
-    background-color: var(--clr-text);
-    color: var(--clr-primary);
-    border-radius: 0.25rem;
-    width: 100%;
-  }
-  
-  .login-btn > button:last-of-type {
-    background-color: var(--clr-primary);
-    color: var(--clr-text);
-  }
-  .login-link {
-    width: 100%;
-    font-size: var(--fs-300);
-    margin-top: -0.75rem;
-    text-align: center;
-  }
-  .login-link > p > span {
-    color: var(--clr-secondary);
-  }
-  .err-message {
-    color: rgb(255, 0, 55);
-    font-size: var(--fs-300);
-  }
-  
-  @media screen and (min-width: 768px) {
-    .login {
-      flex-direction: row;
-      margin: 1.5rem auto;
-  
-      gap: 1rem;
-    }
-  
-    .login-img {
-      flex-basis: 62%;
-    }
-  
-    .login-container {
-      flex-basis: 38%;
-      gap: 1.5rem;
-    }
-  
-    .login-form {
-      gap: 1.5rem;
-    }
-  
-    .login-btn > button {
-      padding: 0.75rem;
-    }
-    .login-field > span {
-      top: 1.65rem;
-    }
-  
-    .login-link {
-      margin-top: -1.5rem;
-    }
-  }
-  
+}

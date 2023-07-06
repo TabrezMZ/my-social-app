@@ -7,28 +7,35 @@ export const Welcome = () => {
   const navigate = useNavigate()
   return (
       <>
-      <div className="welcome-container">
-        <div className="welcome-body">
-          <div className="logo-container">
-            {/* <img src={logo} alt="iShare" />
-            <span>Vconnect</span> */}
+      <div className={`landing-container ${darkMode && "bgDarkmode"}`}>
+      <div className="landing-main">
+        <img src={header} alt="header" className="header-image" />
+        <div className="lending-right">
+          <div className="landing-logo">
+            <img src={logoGif} alt="logo" />
+            <p>Tech-Social</p>
           </div>
-
-          <h1>Connect. Explore. Share with Vconnect.</h1>
-          <p>
-            Welcome to Vconnect, the social media app that empowers you to connect,
-            discover, and share seamlessly. With Vconnect, you can connect with
-            friends, explore new horizons, and express yourself effortlessly.
-          </p>
-          <button className="primary-btn" onClick={() => navigate("./signup")}>
+          <div className="landing-content">
+            <p>
+              <span>Follow</span>people around the globe
+            </p>
+            <p>
+              <span>Connect</span>with yor friends
+            </p>
+            <p>
+              <span>Share</span>what you are thinking
+            </p>
+          </div>
+          <button className="join-now-btn" onClick={() => navigate("/signup")}>
             Join Now
           </button>
-          <button className="link-btn" onClick={() => navigate("./login")}>
-            Already have an account?
-          </button>
+          <p className="login-link">
+            Already have an account?{" "}
+            <span onClick={() => navigate("/login")}>Log In</span>
+          </p>
         </div>
-        <img src={WelcomeBackground} alt="background" className="welcome-img" />
       </div>
+    </div>
       </>
   )
 }

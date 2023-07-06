@@ -1,77 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
 }
+
 :root {
-  --clr-primary: #0ad65c;
-  --clr-primary-light: #f1df9f;
-  --clr-secondary: #00a6fb;
-  --clr-text: #1b2e35;
-  --clr-text-light: gray;
-  --clr-background: #fbf9f1;
-  --clr-border: #c7c6c1;
-
-  --fs-xl: clamp(2.25rem, 4vw + 1rem, 5rem);
-  --fs-600: 2rem;
-  --fs-500: 1.5rem;
-  --fs-400: 1rem;
-  --fs-300: 0.9rem;
-  --fs-200: 0.8rem;
-}
-body.token-present {
-  background-color: var(--clr-background);
-}
-.App {
-  font-family: "Lato", sans-serif;
-  color: var(--clr-text);
-}
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.topbar-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 8;
-  background-color: white;
-  /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
-  border-bottom: 1px solid var(--clr-border);
-}
-@media (min-width: 768px) {
-  :root {
-    --fs-600: 2.5rem;
-    --fs-500: 1.75rem;
-    --fs-400: 1.125rem;
-    --fs-300: 1rem;
-    --fs-200: 0.9rem;
-  }
+  --primary-color: #42a5f5;
+  --primary-dark: #1976d2;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --grey-color: #9ca3af;
+  --lightgrey-color: #e5e7eb;
+  --red-color: red;
+  --offwhite-color: #faf9f9;
+  --primary-darkmode: #0b2239;
+  --secondary-darkmode: #020a12;
 }
 
-@media screen and (min-width: 1024px) {
-  :root {
-    --fs-600: 3rem;
-    --fs-500: 2rem;
-    --fs-400: 1.25rem;
-    --fs-300: 1rem;
-    --fs-200: 0.9rem;
-  }
+.bgDarkmode {
+  background-color: var(--primary-darkmode) !important;
+  color: var(--white-color) !important;
+}
+
+.bgSecondaryDarkMode {
+  background-color: var(--secondary-darkmode) !important;
+  color: var(--white-color) !important;
+  border-radius: 5px !important;
+}
+
+.darkModeColor {
+  color: var(--white-color) !important;
+}
+
+.darkModeBorder {
+  border-color: var(--primary-darkmode) !important;
 }

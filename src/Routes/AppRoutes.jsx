@@ -12,7 +12,10 @@ export const AppRoutes = () => {
             <Route path="/welcome" element={ token ? <Navigate to='/' /> : <Welcome/>} />
             <Route path="/login" element={token ? <Navigate to='/' />  :<Login/>} />
             <Route path="/signup" element={ token ? <Navigate to='/'/>: <Signup/>} />
-            <Route path="/" element={ <AuthRoute><Home/></AuthRoute> } />
+            <Route element={<AuthRoute/>}>
+             <Route path="/" element={<Home/>} />
+            </Route>
+           
         </Routes>
         </>
     )
