@@ -28,12 +28,12 @@ export const AuthContextProvider = ({children}) => {
     }
     const signUpUser = async (SignupData) => {
        try {
-        const { data : {foundUser, encodedToken}, status } = await signUpService(SignupData)
+        const { data : {createdUser, encodedToken}, status } = await signUpService(SignupData)
         if(status === 201) {
             localStorage.setItem("login", JSON.stringify({ token: encodedToken }));
             setAuthToken(encodedToken)
-            localStorage.setItem("user", JSON.stringify({ user: foundUser }));
-            setUserData(foundUser)
+            localStorage.setItem("user", JSON.stringify({ user: createdUser }));
+            setUserData(createdUser)
         }
        } catch (error) {
         console.log("Error in login user", error);

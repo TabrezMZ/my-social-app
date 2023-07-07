@@ -7,10 +7,22 @@ export const Searchbar = (params) => {
   const { dataState, dataDispatch } = useData()
   const [searchInput, setSearchInput] = useState('')
   const [searchedUsers, setSearchedUsers] = useState([])
+
+
   const inputChangeHandler = (e) => {
     const value = e.target.value;
-    setSearchInput(value)
-    setSearchedUsers(dataState.allUser.filter((user) => user.firstName.toLowerCase().includes(value.toLowerCase()) || user.lastName.toLowerCase().includes(value.toLowerCase()) || user.username.toLowerCase().includes(value.toLowerCase())))
+    if(value != undefined || value != null || value != ''){
+      setSearchInput(value)
+      setSearchedUsers(dataState.users.filter((user) => user.firstName.toLowerCase().includes(value.toLowerCase()) || user.lastName.toLowerCase().includes(value.toLowerCase()) || user.username.toLowerCase().includes(value.toLowerCase())))
+    }else{
+      searchedUsers([])
+    }
+  }
+
+
+  const clearSearch = () => {
+    setSearchInput('')
+    setSearchedUsers([])
   }
 
 

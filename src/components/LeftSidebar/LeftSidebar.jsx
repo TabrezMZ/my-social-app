@@ -1,4 +1,10 @@
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+
 export const LeftSideBar = () => {
+    const {userData, darkMode} = useAuth()
+    const [showCreatePostModal , setShowCreatePostModal] = useState(false)
     const getActiveStyle = ({ isActive }) => ({
         color: isActive && "var(--white-color)",
         backgroundColor: isActive && "var(--primary-color)",
@@ -39,7 +45,7 @@ export const LeftSideBar = () => {
                         <i className="fa-solid fa-heart"></i> <span>Liked Posts</span>
                     </NavLink>
                     <NavLink
-                        to={`/profile/${authState?.user?.username}`}
+                        to={`/profile/${userData?.username}`}
                         className={`left-sidebar-items ${darkMode && "darkModeColor"}`}
                         style={getActiveStyle}
                     >

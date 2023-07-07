@@ -1,8 +1,10 @@
 export const initialData = {
-    allUser: [],
-    allPost: [],
+    users: [],
+    posts: [],
     bookmarkPost: [],
     likePost: [],
+    isPostLoading : false,
+    isUserLoading : false,
 }
 
 

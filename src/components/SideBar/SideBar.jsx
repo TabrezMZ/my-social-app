@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Searchbar } from "../Searchbar/Searchbar";
+import { SuggestedUsers } from "../SuggestedUsers/SuggestedUsers";
 
 export const SideBar = () => {
 

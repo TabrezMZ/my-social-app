@@ -1,8 +1,33 @@
+import { useState } from "react";
 import { LeftSideBar, Navbar, PostCard, Postform, SideBar } from "../../components";
 import { useAuth } from "../../contexts/AuthContext";
+import { useData } from "../../contexts/SocialContext";
 
 export const Home = (params) => {
   const {darkMode, setDarkMode, userData, token} = useAuth()
+  const { dataState } = useData()
+  const [sortByOption , setSortByOption] = useState('latest')
+  const sortOptions = {
+    latest : 'Latest Post',
+    oldest : 'oldest Post',
+    trending : 'Latest Post'
+  }
+
+  const followingUsers = userData.following
+
+  const postsOfFollowed = dataState.posts.filter((post)=> post.username == userData.username || followingUsers.some((eachUser)=> eachUser.username == post.username ))
+
+
+  const sortedPosts  = () => {
+    if(sortByOption == 'latest') {
+      return postsOfFollowed.sort((a,b)=> new Date(b.createdDate)-new Date(a.createdDate) )
+    }else if(sortByOption == 'oldest'){
+      return postsOfFollowed.sort((a,b)=> new Date(a.createdDate)-new Date(b.createdDate) )
+    }else{
+      return postsOfFollowed.sort((a,b)=> b.likes - a.likes)
+    }
+  }
+
   return (
     <>
       <div className={`home ${darkMode && "bgDarkmode"}`}>
@@ -11,7 +36,7 @@ export const Home = (params) => {
           <LeftSideBar />
           <div className={`home-main ${darkMode && "bgDarkmode"}`}>
             <Postform />
-            {dataState?.postsLoading ? (
+            {dataState?.isPostLoading ? (
               // <ClipLoader color="var(--primary-dark)" size={60} />
               <p>Loading ...</p>
             ) : postsOfFollowed?.length === 0 ? (

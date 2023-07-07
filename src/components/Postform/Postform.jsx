@@ -1,4 +1,26 @@
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+
 export const Postform = () => {
+  const {userData, darkMode} = useAuth()
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [postContent, setPostContent] = useState('')
+  const [media, setMedia] = useState('')
+
+  const imageSelectHandler = (e) => {
+      setMedia(e.target.files)
+  }
+  const videoSelectHandler = (e) => {
+      setMedia(e.target.files)
+  }
+  const emojiClickHandler = (e) => {
+    setPostContent(postContent + e)
+  }
+
+  const postClickHandler = () => {
+    console.log('clicked')
+  }
+
     return(
         <>
         <div className={`post-form ${darkMode && "bgSecondaryDarkMode"}`}>
@@ -6,10 +28,10 @@ export const Postform = () => {
         <img
           className="create-post-avatar"
           onClick={() => {
-            navigate(`/profile/${authState?.user?.username}`);
+            navigate(`/profile/${userData?.username}`);
           }}
           src={
-            dataState?.users?.find((user) => user._id === authState?.user?._id)
+            dataState?.users?.find((user) => user._id === userData?._id)
               ?.profileAvatar ||
             `https://res.cloudinary.com/dqlasoiaw/image/upload/v1686688962/tech-social/blank-profile-picture-973460_1280_d1qnjd.png`
           }
