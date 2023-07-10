@@ -20,6 +20,21 @@ select {
   border: 2px solid var(--primary-dark);
   font-family: "Poppins", sans-serif;
 }
+
+.sort-post {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.sort-post .sort-text {
+  font-size: 22px;
+  margin: 15x;
+}
+
+.sort-post select {
+  padding: 5px;
+}
   
 @media (max-width: 600px) {
   .home-content .rightSideBar {

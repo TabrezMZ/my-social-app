@@ -1,6 +1,21 @@
+import { useState } from "react";
+import { getSortedPosts } from "../../Utils/SortPosts";
 import { LeftSideBar, Navbar, PostCard, SideBar } from "../../components";
+import { useAuth } from "../../contexts/AuthContext";
+import { useData } from "../../contexts/SocialContext";
+import './Explore.css'
 
 export const Explore = (params) => {
+    const {darkMode} = useAuth()
+    const {dataState} = useData()
+    const [sortByOption , setSortByOption] = useState('latest')
+  const sortOptions = {
+    latest : 'Latest Post',
+    oldest : 'Oldest Post',
+    trending : 'Trending Post'
+  }
+
+  const sortedPosts = getSortedPosts(dataState?.posts, sortByOption);
     return (
         <>
             <div className={`explore ${darkMode && "bgDarkmode"}`}>
@@ -9,7 +24,8 @@ export const Explore = (params) => {
                     <LeftSideBar />
                     <div className="explore-main">
                         {dataState.postsLoading ? (
-                            <ClipLoader color="var(--primary-dark)" size={60} />
+                            // <ClipLoader color="var(--primary-dark)" size={60} />
+                            <p>Loading ...</p>
                         ) : (
                             <div>
                                 <div className="sort-post">

@@ -25,13 +25,13 @@ export const Login = () => {
         <div className={`login ${darkMode && "bgSecondaryDarkMode"}`}>
           <div className="login-logo">
             {/* <img src={logo} alt="logo" /> */}
-            <h2>tech-social</h2>
+            <h2>VConnect</h2>
           </div>
-          <p className="tagline">Social media for programmers</p>
+          <p className="tagline">Social media platform </p>
           <h2>Login</h2>
           <form  onSubmit={saveLoginHandler} >
             <div className="login-form-div">
-              <label for="username">
+              <label htmlFor="username">
                 Username <span>*</span>
               </label>
               <input
@@ -54,8 +54,8 @@ export const Login = () => {
               <div className="password-wrapper">
                 <input
                   className={`${darkMode && "bgDarkmode"}`}
-                  minlength="4"
-                  maxlength="10"
+                  minLength="4"
+                  maxLength="10"
                   id="password"
                   type={hidePwd ? "password" : "text"}
                   placeholder={hidePwd ? "********" : "Enter password"}

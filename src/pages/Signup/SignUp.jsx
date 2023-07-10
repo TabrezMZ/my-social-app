@@ -41,7 +41,7 @@ export const Signup = () => {
                     <form onSubmit={(e) => signupHandler(e)}>
                         <div className="name">
                             <div>
-                                <label for="first-name">
+                                <label htmlFor="first-name">
                                     First Name <span>*</span>
                                 </label>
                                 <input
@@ -59,7 +59,7 @@ export const Signup = () => {
                                 />
                             </div>
                             <div>
-                                <label for="last-name">
+                                <label htmlFor="last-name">
                                     Last Name <span>*</span>
                                 </label>
                                 <input
@@ -79,7 +79,7 @@ export const Signup = () => {
                         </div>
 
                         <div>
-                            <label for="username">
+                            <label htmlFor="username">
                                 Username <span>*</span>
                             </label>
                             <input
@@ -98,7 +98,7 @@ export const Signup = () => {
                         </div>
 
                         <div>
-                            <label for="email">
+                            <label htmlFor="email">
                                 Email <span>*</span>
                             </label>
                             <input
@@ -118,7 +118,7 @@ export const Signup = () => {
                         </div>
 
                         <div>
-                            <label for="password">
+                            <label htmlFor="password">
                                 Password <span>*</span>
                             </label>
                             <div className="password-wrapper">
@@ -127,8 +127,8 @@ export const Signup = () => {
                                     id="password"
                                     type={hidePwd?.pwd ? "password" : "text"}
                                     placeholder={hidePwd?.pwd ? "********" : "Enter password"}
-                                    minlength="4"
-                                    maxlength="10"
+                                    minLength="4"
+                                    maxLength="10"
                                     required
                                     value={SignupData.password}
                                     onChange={(e) =>
@@ -156,14 +156,14 @@ export const Signup = () => {
                         </div>
 
                         <div>
-                            <label for="confirm-password">
+                            <label htmlFor="confirm-password">
                                 Confirm Password <span>*</span>
                             </label>
                             <div className="password-wrapper">
                                 <input
                                     className={`${darkMode && "bgDarkmode"}`}
-                                    minlength="4"
-                                    maxlength="10"
+                                    minLength="4"
+                                    maxLength="10"
                                     id="confirm-password"
                                     type={hidePwd?.confirmPwd ? "password" : "text"}
                                     placeholder={

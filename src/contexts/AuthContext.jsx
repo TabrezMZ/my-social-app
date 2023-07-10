@@ -1,10 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { loginService, signUpService } from "../services/AuthService";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
  const AuthContext = createContext()
 
 export const AuthContextProvider = ({children}) => {
+    const naviagate = useNavigate()
     const localStorageToken = JSON.parse(localStorage.getItem("login"));
     const [token , setAuthToken] = useState(localStorageToken?.token);
     const localStorageUser = JSON.parse(localStorage.getItem("user"));
@@ -40,8 +43,17 @@ export const AuthContextProvider = ({children}) => {
        }
     }
 
+    const userLogout = () => {
+        naviagate('/login')
+         setAuthToken('')
+         setUserData('')
+         localStorage.removeItem('login')
+         localStorage.removeItem('user')
+         toast.success("You're logged out!");
+    }
+
     return(
-        <AuthContext.Provider value={{loginUser, token , userData,  signUpUser, darkMode, setDarkMode}} >{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{loginUser, token , userData,  signUpUser, darkMode, setDarkMode, userLogout}} >{children}</AuthContext.Provider>
     )
 }
 

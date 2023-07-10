@@ -1,10 +1,107 @@
-export const PostModal = () => {
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
+import Picker from "emoji-picker-react";
+import './PostModal.css'
+import { uploadMedia } from "../../Utils/MediaUpload";
+import { createPostHandler } from "../../Utils/CreatePostHandler";
+import { useData } from "../../contexts/SocialContext";
+import { editPostHandler } from "../../Utils/EditPostHandler";
+
+export const PostModal = ({post, setShowEditModal, setShowCreatePostModal}) => {
+  const {darkMode, token} = useAuth()
+  const {dataDispatch} = useData()
+  const [updatedPost, setUpdatedPost] = useState(post || {});
+  const [media, setMedia] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const isPostDisabled = !updatedPost?.content?.trim() && !media;
+
+  const imageSelectHandler = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      Math.round(file.size / 1024000) > 1
+        ? toast.error("File size should not be more than 1Mb")
+        : setMedia(file);
+    };
+    input.click();
+  }
+  const buttonClickHandler  = async () => {
+    if (post) {
+      try {
+        if (media) {
+          const response = await uploadMedia(media);
+          editPostHandler(
+            post._id,
+            { content: updatedPost?.content, mediaURL: response.url },
+            token,
+            dataDispatch
+          );
+        } else {
+          editPostHandler(
+            post._id,
+            { content: updatedPost?.content, mediaURL: updatedPost?.mediaURL },
+            token,
+            dataDispatch
+          );
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setUpdatedPost({});
+        setMedia(null);
+        setShowEditModal(false);
+      }
+    } else {
+      try {
+        const response = media && (await uploadMedia(media));
+        createPostHandler(
+          {
+            content: updatedPost?.content,
+            mediaURL: response ? response?.url : "",
+            comments: [],
+          },
+         token,
+          dataDispatch
+        );
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setUpdatedPost({});
+        setMedia(null);
+        setShowCreatePostModal(false);
+      }
+    }
+  }
+  const emojiClickHandler  = (emojiObj) => {
+    const emoji = emojiObj.emoji;
+    const updatedContent = updatedPost?.content
+      ? updatedPost?.content + emoji
+      : emoji;
+    setUpdatedPost((prev) => ({ ...prev, content: updatedContent }));
+    setShowEmojiPicker(false);
+  }
+  const videoSelectHandler  = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "video/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      Math.round(file.size / 7168000) > 1
+        ? toast.error("File size should not be more than 7Mb")
+        : setMedia(file);
+    };
+    input.click();
+  }
+
     return(
         <>
       <div className="edit-post-modal-container">
       <div
         className={`edit-post-modal ${darkMode && "bgDarkmode"}`}
-        ref={postModalNode}
+        // ref={postModalNode}
       >
         <div className="edit-post-modal-header">
           {post ? <h1>Edit Post</h1> : <h1>Create Post</h1>}
@@ -15,7 +112,7 @@ export const PostModal = () => {
             }
           ></i>
         </div>
-        <textarea
+        <textarea  rows={'7'} cols={'50'}
           className={`${darkMode && "bgDarkmode"}`}
           value={updatedPost?.content}
           onChange={(e) =>
@@ -59,18 +156,20 @@ export const PostModal = () => {
         <div className="edit-post-modal-buttons">
           <div className="edit-post-modal-icons">
             <div>
-              <i
+              {/* <i
                 className="fa-regular fa-image"
                 onClick={imageSelectHandler}
-              ></i>
+              ></i> */}
             </div>
             <div>
-              <i
+              {/* <i
                 className="fa-regular fa-file-video"
                 onClick={videoSelectHandler}
-              ></i>
+              ></i> */}
             </div>
-            <div ref={domNode}>
+            <div
+            //  ref={domNode}
+             >
               <i
                 className="fa-regular fa-face-smile"
                 onClick={() => setShowEmojiPicker(!showEmojiPicker)}

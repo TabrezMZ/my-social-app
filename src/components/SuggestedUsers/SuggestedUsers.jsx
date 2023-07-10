@@ -1,13 +1,33 @@
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { useData } from "../../contexts/SocialContext";
+import { toast } from "react-toastify";
+import { unfollowUserHandler } from "../../Utils/unFollowUserHandler";
+import { followUserHandler } from "../../Utils/followUserHandler";
+import './SuggestedUsers.css'
+import { isFollowed } from "../../Utils/isFollowed";
 
 export const SuggestedUsers = () => {
-  const { dataState } = useData()
-  const { userData } = useAuth()
+  const navigate = useNavigate()
+  const { dataState, dataDispatch } = useData()
+  const { userData, token } = useAuth()
 
-  const followinguser = userData.following
 
-  const suggestedUsers = dataState.users.filter((user) => user.username !== userData.username).filter((user) => followinguser.find((eachuser) => eachuser !== user.username))
+  const userDatas = dataState?.allUsers?.find(
+    (user) => user.username === userData?.username
+  );
+
+  const suggestedUsers = dataState?.allUsers
+  ?.filter((user) => user.username !== userDatas?.username)
+  ?.filter(
+    (eachUser) =>
+      !userDatas?.following?.find(
+        (data) => data.username === eachUser.username
+      )
+  );
+
+  
+ 
 
   return (
     <>
@@ -54,16 +74,16 @@ export const SuggestedUsers = () => {
                       </div>
                       <button
                         onClick={() => {
-                          if (authState?.token) {
-                            if (isFollowed(dataState?.users, _id)) {
+                          if (token) {
+                            if (isFollowed(dataState?.allUsers, _id )) {
                               unfollowUserHandler(
-                                authState?.token,
+                                token,
                                 _id,
                                 dataDispatch
                               );
                             } else {
                               followUserHandler(
-                                authState?.token,
+                                token,
                                 _id,
                                 dataDispatch
                               );
@@ -74,7 +94,7 @@ export const SuggestedUsers = () => {
                           }
                         }}
                       >
-                        {isFollowed(dataState?.users, _id)
+                        {isFollowed(dataState?.allUsers, _id)
                           ? "Following"
                           : "Follow"}
                       </button>

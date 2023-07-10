@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useData } from "../../contexts/SocialContext";
+import { useNavigate } from "react-router-dom";
+import './Searchbar.css'
 
 export const Searchbar = (params) => {
+  const navigate = useNavigate()
   const { darkMode, setDarkMode, userData, token } = useAuth()
   const { dataState, dataDispatch } = useData()
   const [searchInput, setSearchInput] = useState('')
   const [searchedUsers, setSearchedUsers] = useState([])
 
-
   const inputChangeHandler = (e) => {
     const value = e.target.value;
     if(value != undefined || value != null || value != ''){
       setSearchInput(value)
-      setSearchedUsers(dataState.users.filter((user) => user.firstName.toLowerCase().includes(value.toLowerCase()) || user.lastName.toLowerCase().includes(value.toLowerCase()) || user.username.toLowerCase().includes(value.toLowerCase())))
+      setSearchedUsers(dataState.allUsers.filter((user) => user.firstName.toLowerCase().includes(value.toLowerCase()) || user.lastName.toLowerCase().includes(value.toLowerCase()) || user.username.toLowerCase().includes(value.toLowerCase())))
     }else{
       searchedUsers([])
     }

@@ -1,25 +1,69 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { useData } from "../../contexts/SocialContext";
+import Picker from "emoji-picker-react";
+import './Postform.css'
+import { uploadMedia } from "../../Utils/MediaUpload";
+import { createPostHandler } from "../../Utils/CreatePostHandler";
 
 export const Postform = () => {
-  const {userData, darkMode} = useAuth()
+  const navigate = useNavigate()
+  const {userData, darkMode, token} = useAuth()
+  const {dataState, dataDispatch} = useData()
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
   const [postContent, setPostContent] = useState('')
   const [media, setMedia] = useState('')
 
   const imageSelectHandler = (e) => {
-      setMedia(e.target.files)
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      Math.round(file.size / 1024000) > 1
+        ? toast.error("File size should not be more than 1Mb")
+        : setMedia(file);
+    };
+    input.click();
   }
   const videoSelectHandler = (e) => {
-      setMedia(e.target.files)
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "video/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      Math.round(file.size / 7168000) > 1
+        ? toast.error("File size should not be more than 7Mb")
+        : setMedia(file);
+    };
+    input.click();
   }
-  const emojiClickHandler = (e) => {
-    setPostContent(postContent + e)
+  const emojiClickHandler = (emojiObj) => {
+    const emoji = emojiObj.emoji;
+    const updatedContent = postContent + emoji;
+    setPostContent(updatedContent);
+    setShowEmojiPicker(false);
   }
 
-  const postClickHandler = () => {
-    console.log('clicked')
+  const postClickHandler =  async() => {
+    try {
+      const response = media && (await uploadMedia(media));
+      createPostHandler(
+        { content: postContent, mediaURL: response ? response?.url : "", comments: [] },
+        token,
+        dataDispatch
+      );
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setPostContent("");
+      
   }
+ }
+
+  const isPostDisabled = postContent.trim() === "" && !media;
 
     return(
         <>
@@ -31,7 +75,7 @@ export const Postform = () => {
             navigate(`/profile/${userData?.username}`);
           }}
           src={
-            dataState?.users?.find((user) => user._id === userData?._id)
+            dataState?.allUsers?.find((user) => user._id === userData?._id)
               ?.profileAvatar ||
             `https://res.cloudinary.com/dqlasoiaw/image/upload/v1686688962/tech-social/blank-profile-picture-973460_1280_d1qnjd.png`
           }
@@ -60,16 +104,18 @@ export const Postform = () => {
       )}
       <div className="post-form-button-container">
         <div className="post-form-icons">
-          <div>
+          {/* <div>
             <i className="fa-regular fa-image" onClick={imageSelectHandler}></i>
-          </div>
+          </div> */}
           <div>
-            <i
+            {/* <i
               className="fa-regular fa-file-video"
               onClick={videoSelectHandler}
-            ></i>
+            ></i> */}
           </div>
-          <div ref={domNode}>
+          <div 
+          // ref={domNode}
+          >
             <i
               className="fa-regular fa-face-smile"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}

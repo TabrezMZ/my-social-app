@@ -1,6 +1,50 @@
+import { useEffect, useState } from "react";
 import { EditCommentModal, LeftSideBar, Navbar, PostCard, SideBar } from "../../components";
+import { useAuth } from "../../contexts/AuthContext";
+import './SinglePost.css'
+import { useNavigate, useParams } from "react-router-dom";
+import { useData } from "../../contexts/SocialContext";
+import axios from "axios";
+import { addCommentHandler, deleteCommentHandler } from "../../Utils/CommentHandler";
 
 export const SinglePost = () => {
+    const {darkMode, token, userData} = useAuth()
+    const {dataState , dataDispatch} = useData()
+    const [singlePostLoading, setSinglePostLoading] = useState(true);
+  const [postDetails, setPostDetails] = useState({});
+  const [commentText, setCommentText] = useState("");
+  const [showEditCommentModal, setShowEditCommentModal] = useState({
+    show: false,
+    commentId: "",
+  });
+  const navigate = useNavigate();
+
+  const { postID } = useParams();
+
+  const getPostDetails = async () => {
+    try {
+      const { data, status } = await axios.get(`/api/posts/${postID}`);
+      if (status === 200) {
+        setPostDetails(data?.post);
+        setSinglePostLoading(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+
+  const commentDetails =
+    showEditCommentModal.show &&
+    postDetails?.comments?.find(
+      (comment) => comment._id === showEditCommentModal.commentId
+    );
+
+  const isCommentDisabled = commentText.trim() === "";
+
+  useEffect(() => {
+    getPostDetails();
+  }, [dataState.posts]);
     return (
         <>
             <div className={`post-details ${darkMode && "bgDarkmode"}`}>
@@ -9,7 +53,8 @@ export const SinglePost = () => {
                     <LeftSideBar />
                     <div className="post-details-main">
                         {singlePostLoading ? (
-                            <ClipLoader color="var(--primary-dark)" size={60} />
+                            // <ClipLoader color="var(--primary-dark)" size={60} />
+                            <p>Loading ...</p>
                         ) : (
                             postDetails && (
                                 <div
@@ -22,10 +67,10 @@ export const SinglePost = () => {
                                     }}
                                 >
                                     <PostCard key={postDetails._id} post={postDetails} />
-                                    <div className="comment-main-container">
+                                    {/* <div className="comment-main-container">
                                         <img
                                             src={
-                                                authState?.user?.profileAvatar ||
+                                                userData?.profileAvatar ||
                                                 `https://res.cloudinary.com/dqlasoiaw/image/upload/v1686688962/tech-social/blank-profile-picture-973460_1280_d1qnjd.png`
                                             }
                                             alt="profile-pic"
@@ -46,7 +91,7 @@ export const SinglePost = () => {
                                                 onClick={() => {
                                                     !isCommentDisabled &&
                                                         addCommentHandler(
-                                                            authState?.token,
+                                                            token,
                                                             postID,
                                                             commentText,
                                                             dataDispatch
@@ -55,7 +100,7 @@ export const SinglePost = () => {
                                                 }}
                                             ></i>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {postDetails?.comments?.length > 0 ? (
                                         <div
                                             className={`single-page-comment-container ${darkMode && "bgSecondaryDarkMode"
@@ -94,7 +139,7 @@ export const SinglePost = () => {
                                                             >
                                                                 <strong>{`${userComment?.firstName} ${userComment?.lastName}`}</strong>
                                                                 {userComment?.username ===
-                                                                    authState?.user?.username && (
+                                                                    userData?.username && (
                                                                         <div className="comment-edit-delete-icon">
                                                                             <i
                                                                                 className="fa-solid fa-pen"
@@ -109,7 +154,7 @@ export const SinglePost = () => {
                                                                                 className="fa-solid fa-trash-can"
                                                                                 onClick={() =>
                                                                                     deleteCommentHandler(
-                                                                                        authState?.token,
+                                                                                       token,
                                                                                         postID,
                                                                                         comment?._id,
                                                                                         dataDispatch
@@ -126,7 +171,7 @@ export const SinglePost = () => {
                                             })}
                                         </div>
                                     ) : (
-                                        <p>No comments, Share your comment!</p>
+                                        <p>No comments</p>
                                     )}
                                 </div>
                             )

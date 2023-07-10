@@ -1,4 +1,57 @@
-export const EditProfileModal = (params) => {
+import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
+import { useData } from "../../contexts/SocialContext";
+import { useOutsideClick } from "../../hooks/outSideClick";
+import { toast } from "react-toastify";
+import { editUserProfileHandler } from "../../Utils/EditUserProfileHandler";
+import { EditImageModal } from "../EditImageModal/EditImageModal";
+import './EditProfileModal.css'
+
+export const EditProfileModal = ({ profileData, setEditProfileModal }) => {
+    const {darkMode, token} = useAuth()
+    const { dataDispatch} = useData()
+    const [updatedProfileData, setUpdatedProfileData] = useState({
+        firstName: profileData?.firstName,
+        lastName: profileData?.lastName,
+        bio: profileData?.bio,
+        website: profileData?.website,
+        profileAvatar: profileData?.profileAvatar,
+        backgroundImage: profileData?.backgroundImage,
+      });
+      const [editImageModal, setEditImageModal] = useState(false);
+
+      const imageSelectHandler = () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          if (Math.round(file.size / 1024000) > 1)
+            toast.error("File size should not be more than 1Mb");
+          else {
+            setUpdatedProfileData((prev) => ({
+              ...prev,
+              backgroundImage: URL.createObjectURL(file),
+            }));
+          }
+        };
+        input.click();
+      };
+    
+      const updateProfileDetails = (e) => {
+        const { name, value } = e.target;
+        setUpdatedProfileData((prev) => ({ ...prev, [name]: value }));
+      };
+    
+      const updateProfileHandler = () => {
+        editUserProfileHandler(updatedProfileData, token, dataDispatch);
+        setEditProfileModal((editProfileModal) => !editProfileModal);
+        toast.success("Profile updated successfully!");
+      };
+    
+      const editProfileModalNode = useOutsideClick(() =>
+        setEditProfileModal(false)
+      );
     return (
         <>
             <div className="edit-profile-modal-container">

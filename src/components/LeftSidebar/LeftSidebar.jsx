@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { PostModal } from "../PostModal/PostModal";
+import './LeftSidebar.css'
 
 export const LeftSideBar = () => {
-    const {userData, darkMode} = useAuth()
+    const navigate = useNavigate()
+    const {userData, darkMode, token, userLogout} = useAuth()
     const [showCreatePostModal , setShowCreatePostModal] = useState(false)
     const getActiveStyle = ({ isActive }) => ({
         color: isActive && "var(--white-color)",
         backgroundColor: isActive && "var(--primary-color)",
     });
 
+
+   
     return (
         <>
             <div>
@@ -63,7 +68,7 @@ export const LeftSideBar = () => {
                     >
                         <i className="fa-solid fa-plus"></i>
                     </p>
-                    {authState?.token ? (
+                    {token ? (
                         <p
                             onClick={() => userLogout()}
                             className={`left-sidebar-items ${darkMode && "darkModeColor"}`}
@@ -78,8 +83,8 @@ export const LeftSideBar = () => {
                     )}
                     <button
                         className="create-post-btn"
-                        style={{ cursor: !authState?.token && "not-allowed" }}
-                        disabled={!authState?.token && true}
+                        style={{ cursor: !token && "not-allowed" }}
+                        disabled={!token && true}
                         onClick={() => setShowCreatePostModal((prev) => !prev)}
                     >
                         Create New Post

@@ -1,4 +1,45 @@
-export const EditCommentModal = (params) => {
+import { useState } from 'react';
+import './EditCommentModal.css'
+import Picker from "emoji-picker-react";
+import { useAuth } from '../../contexts/AuthContext';
+import { useData } from '../../contexts/SocialContext';
+import { useOutsideClick } from '../../hooks/outSideClick';
+import { editCommentHandler } from '../../Utils/EditCommentHandler';
+export const EditCommentModal = ({ comment, setShowEditCommentModal, postId }) => {
+const {darkMode , token} = useAuth()
+const {dataDispatch} = useData()
+    
+  const [updatedComment, setUpdatedComment] = useState({
+    _id: comment?._id,
+    text: comment?.text,
+  });
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const editCommentModalNode = useOutsideClick(() =>
+    setShowEditCommentModal((prev) => ({ ...prev, show: false }))
+  );
+  const showEmojiPickerNode = useOutsideClick(() => setShowEmojiPicker(false));
+
+  const emojiClickHandler = (emojiObj) => {
+    const emoji = emojiObj.emoji;
+    const updatedCommentText = updatedComment?.text
+      ? updatedComment?.text + emoji
+      : emoji;
+    setUpdatedComment((prev) => ({ ...prev, text: updatedCommentText }));
+    setShowEmojiPicker(false);
+  };
+
+  const buttonClickHandler = () => {
+    editCommentHandler(
+      token,
+      postId,
+      updatedComment?._id,
+      updatedComment?.text,
+      dataDispatch
+    );
+    setShowEditCommentModal((prev) => ({ ...prev, show: false }));
+  };
     return (
         <>
             <div className="edit-comment-modal-container">

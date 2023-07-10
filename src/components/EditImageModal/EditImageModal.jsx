@@ -1,4 +1,32 @@
-export const EditImageModal = (params) => {
+import { useAuth } from '../../contexts/AuthContext';
+import { useOutsideClick } from '../../hooks/outSideClick';
+import { avatarDb } from "../Assets/avatarDb";
+import { toast } from "react-toastify";
+import './EditImageModal.css'
+
+export const EditImageModal = ({ setUpdatedProfileData, setEditImageModal }) => {
+  const {darkMode} = useAuth()
+
+  const imageSelectHandler = () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (Math.round(file.size / 1024000) > 1)
+        toast.error("File size should not be more than 1Mb");
+      else {
+        setUpdatedProfileData((prev) => ({
+          ...prev,
+          profileAvatar: URL.createObjectURL(file),
+        }));
+        setEditImageModal(false);
+      }
+    };
+    input.click();
+  };
+
+  const editImageModalNode = useOutsideClick(() => setEditImageModal(false));
     return(
         <>
         <div className="edit-image-modal-container">

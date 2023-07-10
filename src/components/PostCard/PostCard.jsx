@@ -1,7 +1,70 @@
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import { getPostDate } from "../../Utils/PostDate";
+import { useState } from "react";
+import { useData } from "../../contexts/SocialContext";
+import { toast } from "react-toastify";
+import Linkify from "react-linkify";
+import { contentLink } from "../../Utils/ContentLink";
+import { isFollowed } from "../../Utils/isFollowed";
+import { followUserHandler } from "../../Utils/followUserHandler";
+import { unfollowUserHandler } from "../../Utils/unFollowUserHandler";
+import { dislikePostHandler } from "../../Utils/disLikePostHandler";
+import './PostCard.css'
+import { likePostHandler } from "../../Utils/LikePostHandler";
+import { addToBookmarkPostHandler, removeFromBookmarkPostHandler } from "../../Utils/BookmarkHandler";
+import { deletePostHandler } from "../../Utils/DeletePostHandler";
+import { PostModal } from "../PostModal/PostModal";
+export const PostCard = ({post}) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation();
+  const {darkMode , userData, token} = useAuth()
+  const {dataState, dataDispatch} = useData()
+  const { _id, content, mediaURL, likes, comments, username, createdAt } = post;
+  const [showOptions, setShowOptions] = useState(false)
+  const [showEditModal, setShowEditModal] = useState();
+  const editClickHandler = () => {
+    setShowOptions(false);
+    setShowEditModal(true);
+  };
 
-export const PostCard = (params) => {
-  const {darkMode , userData} = useAuth()
+  const deleteClickHandler = () => {
+    deletePostHandler(token, _id, dataDispatch);
+    if (pathname === `/post/${_id}`) {
+      setTimeout(() => {
+        navigate("/");
+        window.scroll({ top: 0, behavior: "smooth" });
+      }, 2000);
+    }
+    setShowOptions((prev) => !prev);
+  };
+
+  const bookmarkClickHandler = () => {
+    if (isBookmarked()) {
+      removeFromBookmarkPostHandler(token, _id, dataDispatch);
+      toast.success("Removed from Bookmarks");
+    } else {
+      addToBookmarkPostHandler(token, _id, dataDispatch);
+      toast.success("Added to Bookmarks");
+    }
+  }
+  const shareIconHandler = () => {
+    console.log('object');
+  }
+ 
+  const userDatas = dataState?.allUsers?.find(
+    (user) => user.username === userData?.username
+  );
+
+
+  const isliked = () =>
+    likes?.likedBy?.filter(({ _id }) => _id === userDatas?._id)
+      ?.length !== 0;
+
+  const isBookmarked = () =>
+  dataState?.bookmarkPost.filter((post)=> post._id === _id) ?.length !== 0;
+
+
   return (
     <>
       <div
@@ -15,16 +78,16 @@ export const PostCard = (params) => {
           >
             <img
               src={
-                dataState?.users?.find((user) => user.username === username)
+                dataState?.allUsers?.find((user) => user.username === username)
                   ?.profileAvatar ||
                 `https://res.cloudinary.com/dqlasoiaw/image/upload/v1686688962/tech-social/blank-profile-picture-973460_1280_d1qnjd.png`
               }
               alt="avatar"
             />
             <div>
-              <h4>{`${dataState?.users?.find((user) => user.username === username)
+              <h4>{`${dataState?.allUsers?.find((user) => user.username === username)
                   ?.firstName
-                } ${dataState?.users?.find((user) => user.username === username)
+                } ${dataState?.allUsers?.find((user) => user.username === username)
                   ?.lastName
                 }`}</h4>
               <small>
@@ -34,7 +97,9 @@ export const PostCard = (params) => {
               </small>
             </div>
           </div>
-          <div className="edit-delete-icon" ref={domNode}>
+          <div className="edit-delete-icon" 
+          // ref={domNode}
+          >
             <i
               className="fa-solid fa-ellipsis"
               onClick={(e) => {
@@ -43,7 +108,7 @@ export const PostCard = (params) => {
               }}
             ></i>
             {showOptions &&
-              (username === authState?.user?.username ? (
+              (username === userData?.username ? (
                 <div
                   className={`edit-delete-post-modal ${darkMode && "bgDarkmode"}`}
                 >
@@ -71,17 +136,17 @@ export const PostCard = (params) => {
                 >
                   <div
                     onClick={() => {
-                      if (authState?.token) {
-                        if (isFollowed(dataState?.users, userData._id)) {
+                      if (token) {
+                        if (isFollowed(dataState?.allUsers, userData._id)) {
                           unfollowUserHandler(
-                            authState?.token,
+                            token,
                             userData?._id,
                             dataDispatch
                           );
                           setShowOptions(false);
                         } else {
                           followUserHandler(
-                            authState?.token,
+                            token,
                             userData?._id,
                             dataDispatch
                           );
@@ -93,7 +158,7 @@ export const PostCard = (params) => {
                       }
                     }}
                   >
-                    {isFollowed(dataState?.users, userData?._id)
+                    {isFollowed(dataState?.allUsers, userData?._id)
                       ? "Following"
                       : "Follow"}
                   </div>
@@ -133,12 +198,12 @@ export const PostCard = (params) => {
             <i
               className={`${isliked() ? "fa-solid" : "fa-regular"} fa-heart`}
               onClick={() => {
-                if (!authState?.token) {
+                if (!token) {
                   toast.error("Please login to proceed!");
                 } else {
                   isliked()
-                    ? dislikePostHandler(authState?.token, _id, dataDispatch)
-                    : likePostHandler(authState?.token, _id, dataDispatch);
+                    ? dislikePostHandler(token, _id, dataDispatch)
+                    : likePostHandler(token, _id, dataDispatch);
                 }
               }}
             ></i>{" "}
@@ -156,7 +221,7 @@ export const PostCard = (params) => {
               className={`${isBookmarked() ? "fa-solid" : "fa-regular"
                 } fa-bookmark`}
               onClick={() => {
-                if (!authState?.token) {
+                if (!token) {
                   toast.error("Please login to proceed!");
                 } else {
                   bookmarkClickHandler();

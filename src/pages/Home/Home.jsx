@@ -2,6 +2,8 @@ import { useState } from "react";
 import { LeftSideBar, Navbar, PostCard, Postform, SideBar } from "../../components";
 import { useAuth } from "../../contexts/AuthContext";
 import { useData } from "../../contexts/SocialContext";
+import './Home.css'
+import { getSortedPosts } from "../../Utils/SortPosts";
 
 export const Home = (params) => {
   const {darkMode, setDarkMode, userData, token} = useAuth()
@@ -9,24 +11,21 @@ export const Home = (params) => {
   const [sortByOption , setSortByOption] = useState('latest')
   const sortOptions = {
     latest : 'Latest Post',
-    oldest : 'oldest Post',
-    trending : 'Latest Post'
+    oldest : 'Oldest Post',
+    trending : 'Trending Post'
   }
 
-  const followingUsers = userData.following
+  const followingUsers = dataState?.allUsers?.find(
+    ({ username }) => username === userData?.username
+  )?.following
 
   const postsOfFollowed = dataState.posts.filter((post)=> post.username == userData.username || followingUsers.some((eachUser)=> eachUser.username == post.username ))
 
+ 
 
-  const sortedPosts  = () => {
-    if(sortByOption == 'latest') {
-      return postsOfFollowed.sort((a,b)=> new Date(b.createdDate)-new Date(a.createdDate) )
-    }else if(sortByOption == 'oldest'){
-      return postsOfFollowed.sort((a,b)=> new Date(a.createdDate)-new Date(b.createdDate) )
-    }else{
-      return postsOfFollowed.sort((a,b)=> b.likes - a.likes)
-    }
-  }
+
+  const sortedPosts  =  getSortedPosts(postsOfFollowed, sortByOption)
+  
 
   return (
     <>

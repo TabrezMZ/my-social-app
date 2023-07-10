@@ -35,7 +35,7 @@ const deletePostService = ({ _id, token }) => {
   });
 };
 
-const likePostService = ({ _id, token }) => {
+const likePostService = ( _id, token ) => {
   return axios.post(
     `/api/posts/like/${_id}`,
     {},
@@ -45,7 +45,7 @@ const likePostService = ({ _id, token }) => {
   );
 };
 
-const dislikePostService = ({ _id, token }) => {
+const dislikePostService = ( _id, token ) => {
   return axios.post(
     `/api/posts/dislike/${_id}`,
     {},

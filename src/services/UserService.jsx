@@ -42,7 +42,7 @@ export const followUserService = ({ token, followUserId }) => {
   );
 };
 
-export const unfollowUserService = ({ token, followUserId }) => {
+export const unfollowUserService = (token, followUserId ) => {
   return axios.post(
     `/api/users/unfollow/${followUserId}`,
     {},

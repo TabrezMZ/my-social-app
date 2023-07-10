@@ -1,6 +1,24 @@
+import { useEffect, useState } from "react"
 import { LeftSideBar, Navbar, PostCard, SideBar } from "../../components"
+import { useAuth } from "../../contexts/AuthContext"
+import { useData } from "../../contexts/SocialContext"
+import './LikePosts.css'
 
-export const LikePost = () => {
+export const LikePosts = () => {
+    const {darkMode, userData} = useAuth()
+    const {dataState} = useData()
+    const [postsLikedByUser, setPostsLikedByUser] = useState([]);
+
+    useEffect(() => {
+        setPostsLikedByUser(
+          dataState?.posts?.filter((currPost) =>
+            currPost.likes.likedBy.find(
+              (currUser) => currUser.username === userData?.username
+            )
+          )
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [dataState?.posts]);
     return (
         <>
             <div className={`liked-posts ${darkMode && "bgDarkmode"}`}>

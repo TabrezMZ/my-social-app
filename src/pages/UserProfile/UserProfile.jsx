@@ -1,6 +1,54 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { EditProfileModal, FollowModal, LeftSideBar, Navbar, PostCard, SideBar } from "../../components";
+import { useAuth } from "../../contexts/AuthContext";
+import { useData } from "../../contexts/SocialContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { isFollowed } from "../../Utils/isFollowed";
+import { getSortedPosts } from "../../Utils/SortPosts";
+import { unfollowUserHandler } from "../../Utils/unFollowUserHandler";
+import { followUserHandler } from "../../Utils/followUserHandler";
+import './UserProfile.css'
 
-export const UserProfile = (params) => {
+export const UserProfile = () => {
+    const {darkMode, token, userData} = useAuth()
+    const {dataState, dataDispatch} = useData()
+    const { username } = useParams();
+    const [profileData, setProfileData] = useState({});
+  const [editProfileModal, setEditProfileModal] = useState(false);
+  const navigate = useNavigate();
+
+  const [showFollowModal, setShowFollowModal] = useState({
+    show: false,
+    type: "",
+  });
+
+  const [usersLoading, setUsersLoading] = useState(false);
+
+  
+
+  const getUserDetails = async () => {
+    const userId = dataState.allUsers.find((user)=> user.username === username)._id
+    try {
+    //   setUsersLoading(true);
+      const { data, status } = await axios.get(`/api/users/${userId}`);
+      if (status === 200) {
+        setProfileData(data?.user);
+        setUsersLoading(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const userPosts = dataState?.posts?.filter(
+    (post) => post?.username === profileData?.username
+  );
+
+  useEffect(() => {
+    getUserDetails();
+  }, [username, dataState?.allUsers]);
     return (
         <>
             <div className={`profile ${darkMode && "bgDarkmode"}`}>
@@ -9,7 +57,8 @@ export const UserProfile = (params) => {
                     <LeftSideBar />
                     <div className="profile-main">
                         {usersLoading ? (
-                            <ClipLoader color="var(--primary-dark)" size={50} />
+                            <p>Loading...</p>
+                            // <ClipLoader color="var(--primary-dark)" size={50} />
                         ) : (
                             <div
                                 style={{
@@ -64,7 +113,7 @@ export const UserProfile = (params) => {
                                                     />
                                                 </span>
                                                 <div className="edit-follow-button">
-                                                    {profileData?.username === authState?.user?.username ? (
+                                                    {profileData?.username === userData?.username ? (
                                                         <button
                                                             className="edit-button"
                                                             onClick={() => setEditProfileModal(true)}
@@ -74,23 +123,23 @@ export const UserProfile = (params) => {
                                                     ) : (
                                                         <button
                                                             className={
-                                                                isFollowed(dataState?.users, profileData?._id)
+                                                                isFollowed(dataState?.allUsers, profileData?._id)
                                                                     ? "following-button"
                                                                     : "follow-button"
                                                             }
                                                             onClick={() => {
-                                                                if (authState?.token) {
+                                                                if (token) {
                                                                     if (
-                                                                        isFollowed(dataState?.users, profileData?._id)
+                                                                        isFollowed(dataState?.allUsers, profileData?._id)
                                                                     ) {
                                                                         unfollowUserHandler(
-                                                                            authState?.token,
+                                                                            token,
                                                                             profileData?._id,
                                                                             dataDispatch
                                                                         );
                                                                     } else {
                                                                         followUserHandler(
-                                                                            authState?.token,
+                                                                            token,
                                                                             profileData?._id,
                                                                             dataDispatch
                                                                         );
@@ -101,7 +150,7 @@ export const UserProfile = (params) => {
                                                                 }
                                                             }}
                                                         >
-                                                            {isFollowed(dataState?.users, profileData?._id)
+                                                            {isFollowed(dataState?.allUsers, profileData?._id)
                                                                 ? "Following"
                                                                 : "Follow"}
                                                         </button>
