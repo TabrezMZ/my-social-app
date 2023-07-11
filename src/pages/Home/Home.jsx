@@ -19,10 +19,7 @@ export const Home = (params) => {
     ({ username }) => username === userData?.username
   )?.following
 
-  const postsOfFollowed = dataState.posts.filter((post)=> post.username == userData.username || followingUsers.some((eachUser)=> eachUser.username == post.username ))
-
- 
-
+  const postsOfFollowed = dataState.posts.filter((post)=> post.username == userData.username || followingUsers?.some((eachUser)=> eachUser.username == post.username ))
 
   const sortedPosts  =  getSortedPosts(postsOfFollowed, sortByOption)
   

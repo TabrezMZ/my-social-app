@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# VConnect
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[VConnect](https://vconnect-tabrez-neog.netlify.app/) - A social media website where you can share your thoughts and connect with your friends.
 
-## Available Scripts
 
-In the project directory, you can run:
+## How to install and run locally?
 
-### `npm start`
+```
+$ git clone https://github.com/TabrezMZ/my-social-app.git
+$ cd my-social-app
+$ npm install
+$ npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Technologies used :**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React JS
+- React Context API + useReducer
+- React Router v6
+- Vanilla CSS
+- mockbee for backend
+- FontAwesome icons
+- Toastify
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## **Features :**
 
-### `npm run build`
+- Landing Page
+- Authentication
+  - Sign-up
+  - Login
+  - Logout
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- User Feed
+- Explore Feed
+  - List all user posts
+  - Sort posts based on Latest/ Trending / Oldest.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Single post page
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- User Suggestions
+  - Follow / Unfollow users
+  - Search Users
 
-### `npm run eject`
+- Like / Unlike a Post
+- Add / Remove bookmark on a post
+- Share posts
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Create / Edit post with Emoji 
+- Delete Own posts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Profile Page
+  - Edit Own Profile Image with Image Upload
+  - Can choose from provided Avatars
+  - Remove own Profile Image
+  - Edit background cover photo with Image Upload
+  - Edit name, bio, website link
+  - Check followers / following list
+  - list of all posts posted by user 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## **Other Features :**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 404 Error Page
+- Dark Mode
+- Toasts
+- Responsive UI

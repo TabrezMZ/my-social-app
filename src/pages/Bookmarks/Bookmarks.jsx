@@ -5,7 +5,10 @@ import './Bookmarks.css'
 
 export const Bookmarks = (params) => {
     const {darkMode} = useAuth();
-    const {dataState} = useData()
+    const {dataState} = useData();
+
+    const getBookmarkPosts = (post) =>
+    dataState?.posts?.find((posti) => posti._id === post._id);
     return (
         <>
             <div className={`bookmarks ${darkMode && "bgDarkmode"}`}>
@@ -17,7 +20,7 @@ export const Bookmarks = (params) => {
                             <h3>No Bookmarks Yet</h3>
                         ) : (
                             dataState?.bookmarkPost.map((post) => (
-                                <PostCard key={post._id} post={post} />
+                                <PostCard key={post._id} post={getBookmarkPosts(post)} />
                             ))
                         )}
                     </div>

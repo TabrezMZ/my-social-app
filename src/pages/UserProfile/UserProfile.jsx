@@ -29,7 +29,7 @@ export const UserProfile = () => {
   
 
   const getUserDetails = async () => {
-    const userId = dataState.allUsers.find((user)=> user.username === username)._id
+    const userId = dataState.allUsers.find((user)=> user.username === username)?._id
     try {
     //   setUsersLoading(true);
       const { data, status } = await axios.get(`/api/users/${userId}`);

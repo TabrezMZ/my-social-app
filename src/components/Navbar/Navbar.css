@@ -1,5 +1,5 @@
 .navbar {
-  padding: 0 2rem;
+  padding: 0.5rem 2rem;
   box-shadow: 0 8px 6px -6px var(--grey-color);
   position: sticky;
   height: 60px;
@@ -63,7 +63,8 @@
   }
 
   .left-nav h2 {
-    display: none;
+    /* display: none; */
+    font-size: 1rem;
   }
 
   .navbar {
@@ -72,5 +73,6 @@
 
   .navbar .right-nav {
     gap: 1rem;
+    padding: 0.5rem 1rem;
   }
 }

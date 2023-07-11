@@ -48,14 +48,12 @@ export const PostCard = ({post}) => {
       toast.success("Added to Bookmarks");
     }
   }
-  const shareIconHandler = () => {
-    console.log('object');
-  }
  
   const userDatas = dataState?.allUsers?.find(
     (user) => user.username === userData?.username
   );
 
+  const postUserId = dataState.allUsers.find((user)=> user.username == username)?._id
 
   const isliked = () =>
     likes?.likedBy?.filter(({ _id }) => _id === userDatas?._id)
@@ -64,6 +62,32 @@ export const PostCard = ({post}) => {
   const isBookmarked = () =>
   dataState?.bookmarkPost.filter((post)=> post._id === _id) ?.length !== 0;
 
+  const copyLinkHandler = () => {
+    navigator.clipboard.writeText(`https://vconnect-tabrez-neog.netlify.app/post/${_id}`);
+    toast.success("Link Copied. Start sharing!");
+  };
+
+  const shareData = {
+    title: "tech-social",
+    text: "Check out this post",
+    url: `https://vconnect-tabrez-neog.netlify.app/post/${_id}`,
+  };
+
+  const shareHandler = async () => {
+    try {
+      await navigator.share(shareData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const shareIconHandler = () => {
+    if (navigator.share && navigator.canShare(shareData)) {
+      shareHandler();
+    } else {
+      copyLinkHandler();
+    }
+  };
 
   return (
     <>
@@ -137,17 +161,17 @@ export const PostCard = ({post}) => {
                   <div
                     onClick={() => {
                       if (token) {
-                        if (isFollowed(dataState?.allUsers, userData._id)) {
+                        if (isFollowed(dataState?.allUsers, postUserId)) {
                           unfollowUserHandler(
                             token,
-                            userData?._id,
+                            postUserId,
                             dataDispatch
                           );
                           setShowOptions(false);
                         } else {
                           followUserHandler(
                             token,
-                            userData?._id,
+                            postUserId,
                             dataDispatch
                           );
                           setShowOptions(false);
@@ -158,8 +182,8 @@ export const PostCard = ({post}) => {
                       }
                     }}
                   >
-                    {isFollowed(dataState?.allUsers, userData?._id)
-                      ? "Following"
+                    {isFollowed(dataState?.allUsers, postUserId)
+                      ? "UnFollow"
                       : "Follow"}
                   </div>
                 </div>

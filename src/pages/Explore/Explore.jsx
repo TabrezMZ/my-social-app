@@ -9,13 +9,14 @@ export const Explore = (params) => {
     const {darkMode} = useAuth()
     const {dataState} = useData()
     const [sortByOption , setSortByOption] = useState('latest')
-  const sortOptions = {
-    latest : 'Latest Post',
-    oldest : 'Oldest Post',
-    trending : 'Trending Post'
-  }
+    const sortOptions = {
+        latest : 'Latest Post',
+        oldest : 'Oldest Post',
+        trending : 'Trending Post'
+      }
 
-  const sortedPosts = getSortedPosts(dataState?.posts, sortByOption);
+  const sortedPosts = getSortedPosts(dataState.posts, sortByOption);
+  console.log(sortedPosts);
     return (
         <>
             <div className={`explore ${darkMode && "bgDarkmode"}`}>

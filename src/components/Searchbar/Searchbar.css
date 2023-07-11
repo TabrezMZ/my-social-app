@@ -17,6 +17,8 @@
     position: absolute;
     width: calc(100% - 20px);
     border: 1px solid var(--grey-color);
+    height: 25rem;
+    overflow: scroll;
   }
   
   .searched-user {

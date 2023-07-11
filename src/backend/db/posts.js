@@ -8,7 +8,7 @@ import { formatDate } from "../utils/authUtils";
 
 export const posts = [
   {
-    _id: uuid(),
+    _id: 1,
     content:
       "Tip of the day: If you are confused between Composition and Inheritance to solve a problem - Always go with Composition pattern. Composition gives more flexibility because it is loosely coupled and Inheritance is tightly coupled.",
     image: "",
@@ -23,7 +23,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 7,
     content:
       "Good morning, world! ☀️ Starting the day with a cup of coffee and a heart full of gratitude. There's something magical about the quiet moments before the chaos begins. Embrace the day, chase your dreams, and let positivity guide you. Remember, every day is a chance for a fresh start! ✨❤️",
     image: "",
@@ -38,7 +38,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 2,
     content:
       "Just finished reading an incredible book that completely blew my mind! The characters were so well-developed, and the plot twists kept me on the edge of my seat. Highly recommend it to all my fellow bookworms out there.",
     image: "",
@@ -53,7 +53,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 3,
     content:
       "AI: a game-changer reshaping industries and enhancing lives. From self-driving cars to personalized recommendations, its power is limitless. We stand at the forefront of an exciting era, witnessing the remarkable possibilities of artificial intelligence. 🚀",
     image:
@@ -69,7 +69,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 4,
     content:
       "Took a spontaneous road trip this weekend and discovered the most breathtaking scenery. Mother Nature truly knows how to leave you speechless.",
     image:
@@ -85,7 +85,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 5,
     content:
       "For those wondering how to write, start to write. And think. Watch how you think. Watch how things are. Connect the dots and you will get a point of view to share. Don't try to impress, try to present - put forward things.",
     image: "",
@@ -100,7 +100,7 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: uuid(),
+    _id: 6,
     content:
       "Don't hate errors and bugs. They're not your enemies. It's a part of your programming journey. See errors and bugs as a sign that you're pushing your boundaries. It shows growth.",
     image:
