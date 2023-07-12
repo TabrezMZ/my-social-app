@@ -87,6 +87,8 @@ export function makeServer({ environment = "development" } = {}) {
         "/users/unfollow/:followUserId/",
         unfollowUserHandler.bind(this)
       );
+      this.passthrough("https://api.cloudinary.com/v1_1/ddvlw1otr/auto/upload");
+      this.passthrough("https://tenor.googleapis.com/**");
     },
   });
 }

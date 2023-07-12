@@ -15,11 +15,11 @@ import { likePostHandler } from "../../Utils/LikePostHandler";
 import { addToBookmarkPostHandler, removeFromBookmarkPostHandler } from "../../Utils/BookmarkHandler";
 import { deletePostHandler } from "../../Utils/DeletePostHandler";
 import { PostModal } from "../PostModal/PostModal";
-export const PostCard = ({post}) => {
+export const PostCard = ({ post }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation();
-  const {darkMode , userData, token} = useAuth()
-  const {dataState, dataDispatch} = useData()
+  const { darkMode, userData, token } = useAuth()
+  const { dataState, dataDispatch } = useData()
   const { _id, content, mediaURL, likes, comments, username, createdAt } = post;
   const [showOptions, setShowOptions] = useState(false)
   const [showEditModal, setShowEditModal] = useState();
@@ -48,19 +48,19 @@ export const PostCard = ({post}) => {
       toast.success("Added to Bookmarks");
     }
   }
- 
+
   const userDatas = dataState?.allUsers?.find(
     (user) => user.username === userData?.username
   );
 
-  const postUserId = dataState.allUsers.find((user)=> user.username == username)?._id
+  const postUserId = dataState.allUsers.find((user) => user.username == username)?._id
 
   const isliked = () =>
     likes?.likedBy?.filter(({ _id }) => _id === userDatas?._id)
       ?.length !== 0;
 
   const isBookmarked = () =>
-  dataState?.bookmarkPost.filter((post)=> post._id === _id) ?.length !== 0;
+    dataState?.bookmarkPost.filter((post) => post._id === _id)?.length !== 0;
 
   const copyLinkHandler = () => {
     navigator.clipboard.writeText(`https://vconnect-tabrez-neog.netlify.app/post/${_id}`);
@@ -110,7 +110,7 @@ export const PostCard = ({post}) => {
             />
             <div>
               <h4>{`${dataState?.allUsers?.find((user) => user.username === username)
-                  ?.firstName
+                ?.firstName
                 } ${dataState?.allUsers?.find((user) => user.username === username)
                   ?.lastName
                 }`}</h4>
@@ -121,7 +121,7 @@ export const PostCard = ({post}) => {
               </small>
             </div>
           </div>
-          <div className="edit-delete-icon" 
+          <div className="edit-delete-icon"
           // ref={domNode}
           >
             <i

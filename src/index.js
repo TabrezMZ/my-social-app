@@ -5,12 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from 'react-router-dom';
-import { AuthContextProvider , useAuth } from './contexts/AuthContext';
+import { AuthContextProvider, useAuth } from './contexts/AuthContext';
 import { SocialDataProvider } from './contexts/SocialContext';
 
 
 
-export {useAuth}
+export { useAuth }
 // Call make Server
 makeServer();
 
@@ -20,7 +20,7 @@ root.render(
     <Router>
       <AuthContextProvider>
         <SocialDataProvider>
-        <App />
+          <App />
         </SocialDataProvider>
       </AuthContextProvider>
     </Router>

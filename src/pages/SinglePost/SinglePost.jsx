@@ -8,43 +8,43 @@ import axios from "axios";
 import { addCommentHandler, deleteCommentHandler } from "../../Utils/CommentHandler";
 
 export const SinglePost = () => {
-    const {darkMode, token, userData} = useAuth()
-    const {dataState , dataDispatch} = useData()
+    const { darkMode, token, userData } = useAuth()
+    const { dataState, dataDispatch } = useData()
     const [singlePostLoading, setSinglePostLoading] = useState(true);
-  const [postDetails, setPostDetails] = useState({});
-  const [commentText, setCommentText] = useState("");
-  const [showEditCommentModal, setShowEditCommentModal] = useState({
-    show: false,
-    commentId: "",
-  });
-  const navigate = useNavigate();
+    const [postDetails, setPostDetails] = useState({});
+    const [commentText, setCommentText] = useState("");
+    const [showEditCommentModal, setShowEditCommentModal] = useState({
+        show: false,
+        commentId: "",
+    });
+    const navigate = useNavigate();
 
-  const { postID } = useParams();
+    const { postID } = useParams();
 
-  const getPostDetails = async () => {
-    try {
-      const { data, status } = await axios.get(`/api/posts/${postID}`);
-      if (status === 200) {
-        setPostDetails(data?.post);
-        setSinglePostLoading(false);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
+    const getPostDetails = async () => {
+        try {
+            const { data, status } = await axios.get(`/api/posts/${postID}`);
+            if (status === 200) {
+                setPostDetails(data?.post);
+                setSinglePostLoading(false);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
 
-  const commentDetails =
-    showEditCommentModal.show &&
-    postDetails?.comments?.find(
-      (comment) => comment._id === showEditCommentModal.commentId
-    );
+    const commentDetails =
+        showEditCommentModal.show &&
+        postDetails?.comments?.find(
+            (comment) => comment._id === showEditCommentModal.commentId
+        );
 
-  const isCommentDisabled = commentText.trim() === "";
+    const isCommentDisabled = commentText.trim() === "";
 
-  useEffect(() => {
-    getPostDetails();
-  }, [dataState.posts]);
+    useEffect(() => {
+        getPostDetails();
+    }, [dataState.posts]);
     return (
         <>
             <div className={`post-details ${darkMode && "bgDarkmode"}`}>
@@ -154,7 +154,7 @@ export const SinglePost = () => {
                                                                                 className="fa-solid fa-trash-can"
                                                                                 onClick={() =>
                                                                                     deleteCommentHandler(
-                                                                                       token,
+                                                                                        token,
                                                                                         postID,
                                                                                         comment?._id,
                                                                                         dataDispatch

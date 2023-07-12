@@ -47,7 +47,7 @@ $ npm start
 - Share posts
 
 
-- Create / Edit post with Emoji 
+- Create / Edit post with Image/GIF, Video and Emoji Upload 
 - Delete Own posts
 
 - Profile Page
@@ -66,3 +66,7 @@ $ npm start
 - Dark Mode
 - Toasts
 - Responsive UI
+
+## **Demo :**
+[vconnect.webm](https://github.com/TabrezMZ/my-social-app/assets/116564258/8b4da3ae-f202-4d07-a5ac-5e6a1e89adde)
+

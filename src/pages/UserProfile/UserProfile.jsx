@@ -12,43 +12,42 @@ import { followUserHandler } from "../../Utils/followUserHandler";
 import './UserProfile.css'
 
 export const UserProfile = () => {
-    const {darkMode, token, userData} = useAuth()
-    const {dataState, dataDispatch} = useData()
+    const { darkMode, token, userData } = useAuth()
+    const { dataState, dataDispatch } = useData()
     const { username } = useParams();
     const [profileData, setProfileData] = useState({});
-  const [editProfileModal, setEditProfileModal] = useState(false);
-  const navigate = useNavigate();
+    const [editProfileModal, setEditProfileModal] = useState(false);
+    const navigate = useNavigate();
 
-  const [showFollowModal, setShowFollowModal] = useState({
-    show: false,
-    type: "",
-  });
+    const [showFollowModal, setShowFollowModal] = useState({
+        show: false,
+        type: "",
+    });
 
-  const [usersLoading, setUsersLoading] = useState(false);
+    const [usersLoading, setUsersLoading] = useState(false);
 
-  
 
-  const getUserDetails = async () => {
-    const userId = dataState.allUsers.find((user)=> user.username === username)?._id
-    try {
-    //   setUsersLoading(true);
-      const { data, status } = await axios.get(`/api/users/${userId}`);
-      if (status === 200) {
-        setProfileData(data?.user);
-        setUsersLoading(false);
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
-  const userPosts = dataState?.posts?.filter(
-    (post) => post?.username === profileData?.username
-  );
+    const getUserDetails = async () => {
+        const userId = dataState.allUsers.find((user) => user.username === username)?._id
+        try {
+            const { data, status } = await axios.get(`/api/users/${userId}`);
+            if (status === 200) {
+                setProfileData(data?.user);
+                setUsersLoading(false);
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
-  useEffect(() => {
-    getUserDetails();
-  }, [username, dataState?.allUsers]);
+    const userPosts = dataState?.posts?.filter(
+        (post) => post?.username === profileData?.username
+    );
+
+    useEffect(() => {
+        getUserDetails();
+    }, [username, dataState?.allUsers]);
     return (
         <>
             <div className={`profile ${darkMode && "bgDarkmode"}`}>
@@ -205,8 +204,8 @@ export const UserProfile = () => {
                                         >
                                             {profileData?.followers?.length}{" "}
                                             {`${profileData?.followers?.length > 1
-                                                    ? "Followers"
-                                                    : "Follower"
+                                                ? "Followers"
+                                                : "Follower"
                                                 }`}
                                         </p>
                                         <p
@@ -220,8 +219,8 @@ export const UserProfile = () => {
                                         >
                                             {profileData?.following?.length}{" "}
                                             {`${profileData?.following?.length > 1
-                                                    ? "Followings"
-                                                    : "Following"
+                                                ? "Followings"
+                                                : "Following"
                                                 }`}
                                         </p>
                                     </div>

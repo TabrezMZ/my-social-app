@@ -5,20 +5,19 @@ import { useData } from "../../contexts/SocialContext"
 import './LikePosts.css'
 
 export const LikePosts = () => {
-    const {darkMode, userData} = useAuth()
-    const {dataState} = useData()
+    const { darkMode, userData } = useAuth()
+    const { dataState } = useData()
     const [postsLikedByUser, setPostsLikedByUser] = useState([]);
 
     useEffect(() => {
         setPostsLikedByUser(
-          dataState?.posts?.filter((currPost) =>
-            currPost.likes.likedBy.find(
-              (currUser) => currUser.username === userData?.username
+            dataState?.posts?.filter((currPost) =>
+                currPost.likes.likedBy.find(
+                    (currUser) => currUser.username === userData?.username
+                )
             )
-          )
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [dataState?.posts]);
+    }, [dataState?.posts]);
     return (
         <>
             <div className={`liked-posts ${darkMode && "bgDarkmode"}`}>

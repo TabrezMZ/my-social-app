@@ -8,17 +8,17 @@ const getSinglePostService = (postId) => {
   return axios.get(`/api/posts/${postId}`);
 };
 
-const createPostService = ({ input,postImage, token, user }) => {
+const createPostService = ({ input, postImage, token, user }) => {
   return axios.post(
     "/api/posts",
-    { postData: { content: input,postImage, fullName: user.fullName } },
+    { postData: { content: input, postImage, fullName: user.fullName } },
     {
       headers: { authorization: token },
     }
   );
 };
 
-const editPostService = ({ token, postImage,  post, input }) => {
+const editPostService = ({ token, postImage, post, input }) => {
   return axios.post(
     `/api/posts/edit/${post._id}`,
     { postData: { content: input, postImage } },
@@ -35,7 +35,7 @@ const deletePostService = ({ _id, token }) => {
   });
 };
 
-const likePostService = ( _id, token ) => {
+const likePostService = (_id, token) => {
   return axios.post(
     `/api/posts/like/${_id}`,
     {},
@@ -45,7 +45,7 @@ const likePostService = ( _id, token ) => {
   );
 };
 
-const dislikePostService = ( _id, token ) => {
+const dislikePostService = (_id, token) => {
   return axios.post(
     `/api/posts/dislike/${_id}`,
     {},

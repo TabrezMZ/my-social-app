@@ -8,10 +8,10 @@ import { formatDate } from "../utils/authUtils";
 
 export const posts = [
   {
-    _id: 1,
+    _id: 'hgfdsa',
     content:
       "Tip of the day: If you are confused between Composition and Inheritance to solve a problem - Always go with Composition pattern. Composition gives more flexibility because it is loosely coupled and Inheritance is tightly coupled.",
-    image: "",
+    mediaURL: "",
     imageAlt: "",
     likes: {
       likeCount: 0,
@@ -23,10 +23,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 7,
+    _id: 'lkjhgf',
     content:
       "Good morning, world! ☀️ Starting the day with a cup of coffee and a heart full of gratitude. There's something magical about the quiet moments before the chaos begins. Embrace the day, chase your dreams, and let positivity guide you. Remember, every day is a chance for a fresh start! ✨❤️",
-    image: "",
+    mediaURL: "",
     imageAlt: "",
     likes: {
       likeCount: 0,
@@ -38,10 +38,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 2,
+    _id: 'olkimnj',
     content:
       "Just finished reading an incredible book that completely blew my mind! The characters were so well-developed, and the plot twists kept me on the edge of my seat. Highly recommend it to all my fellow bookworms out there.",
-    image: "",
+    mediaURL: "",
     imageAlt: "",
     likes: {
       likeCount: 0,
@@ -53,10 +53,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 3,
+    _id: 'wscdfvg',
     content:
       "AI: a game-changer reshaping industries and enhancing lives. From self-driving cars to personalized recommendations, its power is limitless. We stand at the forefront of an exciting era, witnessing the remarkable possibilities of artificial intelligence. 🚀",
-    image:
+    mediaURL:
       "https://res.cloudinary.com/dogvmq3s7/image/upload/v1688301062/iShare/qwn1gy3gsymkpqwdcmmt.jpg",
     imageAlt: "ai-image",
     likes: {
@@ -69,10 +69,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 4,
+    _id: 'okhfsa',
     content:
       "Took a spontaneous road trip this weekend and discovered the most breathtaking scenery. Mother Nature truly knows how to leave you speechless.",
-    image:
+    mediaURL:
       "https://res.cloudinary.com/dogvmq3s7/image/upload/v1688279073/hyteowy806inzbz0nohc.jpg",
     imageAlt: "road-trip",
     likes: {
@@ -85,10 +85,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 5,
+    _id: 'qwerbnm',
     content:
       "For those wondering how to write, start to write. And think. Watch how you think. Watch how things are. Connect the dots and you will get a point of view to share. Don't try to impress, try to present - put forward things.",
-    image: "",
+    mediaURL: "",
     imageAlt: "",
     likes: {
       likeCount: 0,
@@ -100,10 +100,10 @@ export const posts = [
     updatedAt: formatDate(),
   },
   {
-    _id: 6,
+    _id: 'zxoprtvb',
     content:
       "Don't hate errors and bugs. They're not your enemies. It's a part of your programming journey. See errors and bugs as a sign that you're pushing your boundaries. It shows growth.",
-    image:
+    i:
       "https://res.cloudinary.com/dogvmq3s7/image/upload/v1686580986/gttovlzh4fee8txsvdeh.jpg",
     imageAlt: "cld-sample",
     likes: {

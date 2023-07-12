@@ -8,8 +8,8 @@ import { EditImageModal } from "../EditImageModal/EditImageModal";
 import './EditProfileModal.css'
 
 export const EditProfileModal = ({ profileData, setEditProfileModal }) => {
-    const {darkMode, token} = useAuth()
-    const { dataDispatch} = useData()
+    const { darkMode, token } = useAuth()
+    const { dataDispatch } = useData()
     const [updatedProfileData, setUpdatedProfileData] = useState({
         firstName: profileData?.firstName,
         lastName: profileData?.lastName,
@@ -17,41 +17,41 @@ export const EditProfileModal = ({ profileData, setEditProfileModal }) => {
         website: profileData?.website,
         profileAvatar: profileData?.profileAvatar,
         backgroundImage: profileData?.backgroundImage,
-      });
-      const [editImageModal, setEditImageModal] = useState(false);
+    });
+    const [editImageModal, setEditImageModal] = useState(false);
 
-      const imageSelectHandler = () => {
+    const imageSelectHandler = () => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = "image/*";
         input.onchange = (e) => {
-          const file = e.target.files[0];
-          if (Math.round(file.size / 1024000) > 1)
-            toast.error("File size should not be more than 1Mb");
-          else {
-            setUpdatedProfileData((prev) => ({
-              ...prev,
-              backgroundImage: URL.createObjectURL(file),
-            }));
-          }
+            const file = e.target.files[0];
+            if (Math.round(file.size / 1024000) > 1)
+                toast.error("File size should not be more than 1Mb");
+            else {
+                setUpdatedProfileData((prev) => ({
+                    ...prev,
+                    backgroundImage: URL.createObjectURL(file),
+                }));
+            }
         };
         input.click();
-      };
-    
-      const updateProfileDetails = (e) => {
+    };
+
+    const updateProfileDetails = (e) => {
         const { name, value } = e.target;
         setUpdatedProfileData((prev) => ({ ...prev, [name]: value }));
-      };
-    
-      const updateProfileHandler = () => {
+    };
+
+    const updateProfileHandler = () => {
         editUserProfileHandler(updatedProfileData, token, dataDispatch);
         setEditProfileModal((editProfileModal) => !editProfileModal);
         toast.success("Profile updated successfully!");
-      };
-    
-      const editProfileModalNode = useOutsideClick(() =>
+    };
+
+    const editProfileModalNode = useOutsideClick(() =>
         setEditProfileModal(false)
-      );
+    );
     return (
         <>
             <div className="edit-profile-modal-container">

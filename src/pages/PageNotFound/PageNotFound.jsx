@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthContext"
 import './PageNotFound.css'
 export const PageNotFound = () => {
     const navigate = useNavigate()
-    const {darkMode} = useAuth()
+    const { darkMode } = useAuth()
     return (
         <>
             <div className={`page-not-found-main ${darkMode && "bgDarkmode"}`}>

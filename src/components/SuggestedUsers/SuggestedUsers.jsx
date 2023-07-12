@@ -18,16 +18,16 @@ export const SuggestedUsers = () => {
   );
 
   const suggestedUsers = dataState?.allUsers
-  ?.filter((user) => user.username !== userDatas?.username)
-  ?.filter(
-    (eachUser) =>
-      !userDatas?.following?.find(
-        (data) => data.username === eachUser.username
-      )
-  );
+    ?.filter((user) => user.username !== userDatas?.username)
+    ?.filter(
+      (eachUser) =>
+        !userDatas?.following?.find(
+          (data) => data.username === eachUser.username
+        )
+    );
 
-  
- 
+
+
 
   return (
     <>
@@ -75,7 +75,7 @@ export const SuggestedUsers = () => {
                       <button
                         onClick={() => {
                           if (token) {
-                            if (isFollowed(dataState?.allUsers, _id )) {
+                            if (isFollowed(dataState?.allUsers, _id)) {
                               unfollowUserHandler(
                                 token,
                                 _id,

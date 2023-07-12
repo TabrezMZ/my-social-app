@@ -6,17 +6,16 @@ import { useData } from "../../contexts/SocialContext";
 import './Explore.css'
 
 export const Explore = (params) => {
-    const {darkMode} = useAuth()
-    const {dataState} = useData()
-    const [sortByOption , setSortByOption] = useState('latest')
+    const { darkMode } = useAuth()
+    const { dataState } = useData()
+    const [sortByOption, setSortByOption] = useState('latest')
     const sortOptions = {
-        latest : 'Latest Post',
-        oldest : 'Oldest Post',
-        trending : 'Trending Post'
-      }
+        latest: 'Latest Post',
+        oldest: 'Oldest Post',
+        trending: 'Trending Post'
+    }
 
-  const sortedPosts = getSortedPosts(dataState.posts, sortByOption);
-  console.log(sortedPosts);
+    const sortedPosts = getSortedPosts(dataState.posts, sortByOption);
     return (
         <>
             <div className={`explore ${darkMode && "bgDarkmode"}`}>

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import './EditImageModal.css'
 
 export const EditImageModal = ({ setUpdatedProfileData, setEditImageModal }) => {
-  const {darkMode} = useAuth()
+  const { darkMode } = useAuth()
 
   const imageSelectHandler = () => {
     const input = document.createElement("input");
@@ -27,57 +27,57 @@ export const EditImageModal = ({ setUpdatedProfileData, setEditImageModal }) => 
   };
 
   const editImageModalNode = useOutsideClick(() => setEditImageModal(false));
-    return(
-        <>
-        <div className="edit-image-modal-container">
-      <div
-        className={`edit-image-modal ${darkMode && "bgDarkmode"}`}
-        ref={editImageModalNode}
-      >
-        <div className="edit-image-modal-header">
-          <h3>Edit Profile Image</h3>
-          <i
-            className="fa-solid fa-xmark"
-            onClick={() => setEditImageModal(false)}
-          ></i>
-        </div>
-        <div className="avatar-container">
-          {avatarDb?.map((avatar) => (
-            <img
-              src={avatar}
-              key={avatar}
-              alt="avatar"
-              name="profileAvatar"
-              value={avatar}
+  return (
+    <>
+      <div className="edit-image-modal-container">
+        <div
+          className={`edit-image-modal ${darkMode && "bgDarkmode"}`}
+          ref={editImageModalNode}
+        >
+          <div className="edit-image-modal-header">
+            <h3>Edit Profile Image</h3>
+            <i
+              className="fa-solid fa-xmark"
+              onClick={() => setEditImageModal(false)}
+            ></i>
+          </div>
+          <div className="avatar-container">
+            {avatarDb?.map((avatar) => (
+              <img
+                src={avatar}
+                key={avatar}
+                alt="avatar"
+                name="profileAvatar"
+                value={avatar}
+                onClick={() => {
+                  setUpdatedProfileData((prev) => ({
+                    ...prev,
+                    profileAvatar: avatar,
+                  }));
+                  setEditImageModal(false);
+                }}
+              />
+            ))}
+          </div>
+          <div className="edit-image-buttons">
+            <button onClick={imageSelectHandler}>
+              <i className="fa-regular fa-image"></i> Browse Profile Image
+            </button>
+            <button
               onClick={() => {
                 setUpdatedProfileData((prev) => ({
                   ...prev,
-                  profileAvatar: avatar,
+                  profileAvatar: "",
                 }));
                 setEditImageModal(false);
               }}
-            />
-          ))}
-        </div>
-        <div className="edit-image-buttons">
-          <button onClick={imageSelectHandler}>
-            <i className="fa-regular fa-image"></i> Browse Profile Image
-          </button>
-          <button
-            onClick={() => {
-              setUpdatedProfileData((prev) => ({
-                ...prev,
-                profileAvatar: "",
-              }));
-              setEditImageModal(false);
-            }}
-          >
-            <i class="fa-regular fa-trash-can"></i> Remove Profile Image
-          </button>
+            >
+              <i class="fa-regular fa-trash-can"></i> Remove Profile Image
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-        </>
-    )
-    
+    </>
+  )
+
 };

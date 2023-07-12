@@ -13,10 +13,10 @@ export const Searchbar = (params) => {
 
   const inputChangeHandler = (e) => {
     const value = e.target.value;
-    if(value != undefined || value != null || value != ''){
+    if (value != undefined || value != null || value != '') {
       setSearchInput(value)
       setSearchedUsers(dataState.allUsers.filter((user) => user.firstName.toLowerCase().includes(value.toLowerCase()) || user.lastName.toLowerCase().includes(value.toLowerCase()) || user.username.toLowerCase().includes(value.toLowerCase())))
-    }else{
+    } else {
       searchedUsers([])
     }
   }

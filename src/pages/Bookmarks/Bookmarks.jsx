@@ -4,11 +4,11 @@ import { useData } from "../../contexts/SocialContext";
 import './Bookmarks.css'
 
 export const Bookmarks = (params) => {
-    const {darkMode} = useAuth();
-    const {dataState} = useData();
+    const { darkMode } = useAuth();
+    const { dataState } = useData();
 
     const getBookmarkPosts = (post) =>
-    dataState?.posts?.find((posti) => posti._id === post._id);
+        dataState?.posts?.find((posti) => posti._id === post._id);
     return (
         <>
             <div className={`bookmarks ${darkMode && "bgDarkmode"}`}>

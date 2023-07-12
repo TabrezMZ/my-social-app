@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import loginImg from '../../assets/iShareSignup.png'
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import './SignUp.css'
@@ -22,7 +21,6 @@ export const Signup = () => {
 
 
     const signupHandler = (e) => {
-        console.log(SignupData);
         signUpUser(SignupData)
         e.preventDefault();
     }
@@ -176,12 +174,12 @@ export const Signup = () => {
                                     }}
                                 />
                                 <span
-                                   onClick={() =>
-                                    setHidePwd((prev) => ({
-                                        ...prev,
-                                        confirmPwd: !hidePwd?.confirmPwd,
-                                    }))
-                                }
+                                    onClick={() =>
+                                        setHidePwd((prev) => ({
+                                            ...prev,
+                                            confirmPwd: !hidePwd?.confirmPwd,
+                                        }))
+                                    }
                                 >
                                     {hidePwd?.confirmPwd ? (
                                         <i className="fa-regular fa-eye-slash"></i>

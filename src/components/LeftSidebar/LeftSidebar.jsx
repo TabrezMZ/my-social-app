@@ -6,15 +6,15 @@ import './LeftSidebar.css'
 
 export const LeftSideBar = () => {
     const navigate = useNavigate()
-    const {userData, darkMode, token, userLogout} = useAuth()
-    const [showCreatePostModal , setShowCreatePostModal] = useState(false)
+    const { userData, darkMode, token, userLogout } = useAuth()
+    const [showCreatePostModal, setShowCreatePostModal] = useState(false)
     const getActiveStyle = ({ isActive }) => ({
         color: isActive && "var(--white-color)",
         backgroundColor: isActive && "var(--primary-color)",
     });
 
 
-   
+
     return (
         <>
             <div>

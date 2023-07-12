@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import loginImg from '../../assets/iShareLogin.png'
 import './Login.css'
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +11,6 @@ export const Login = () => {
   const [loginBtnDisabled, setLoginBtnDisabled] = useState(false)
   const saveLoginHandler = (e) => {
     e.preventDefault();
-    console.log(loginData);
     loginUser(loginData)
   }
   const guestLoginHandler = () => {
@@ -29,7 +26,7 @@ export const Login = () => {
           </div>
           <p className="tagline">Social media platform </p>
           <h2>Login</h2>
-          <form  onSubmit={saveLoginHandler} >
+          <form onSubmit={saveLoginHandler} >
             <div className="login-form-div">
               <label htmlFor="username">
                 Username <span>*</span>
@@ -48,14 +45,14 @@ export const Login = () => {
             </div>
 
             <div className="login-form-div">
-              <label for="password">
+              <label htmlFor="password">
                 Password <span>*</span>
               </label>
               <div className="password-wrapper">
                 <input
                   className={`${darkMode && "bgDarkmode"}`}
                   minLength="4"
-                  maxLength="10"
+                  maxLength="20"
                   id="password"
                   type={hidePwd ? "password" : "text"}
                   placeholder={hidePwd ? "********" : "Enter password"}

@@ -6,11 +6,11 @@ import { AppRoutes } from './Routes/AppRoutes';
 import { useAuth } from './contexts/AuthContext';
 
 function App() {
-  const {darkMode} = useAuth()
+  const { darkMode } = useAuth()
   return (
     <div className='container'>
-       <AppRoutes/>
-       <ToastContainer
+      <AppRoutes />
+      <ToastContainer
         position="bottom-right"
         autoClose={1000}
         hideProgressBar={false}

@@ -6,16 +6,16 @@ import { useAuth } from "../../contexts/AuthContext";
 import './SideBar.css'
 
 export const SideBar = () => {
-   const {darkMode} = useAuth()
+  const { darkMode } = useAuth()
   return (
     <>
-       <div className={`right-sidebar ${darkMode && "bgDarkmode darkModeBorder"}`}>
-      <Searchbar />
-      <div className={`suggested-users ${darkMode && "bgSecondaryDarkMode"}`}>
-        <h4>Suggestions for you</h4>
-        <SuggestedUsers />
+      <div className={`right-sidebar ${darkMode && "bgDarkmode darkModeBorder"}`}>
+        <Searchbar />
+        <div className={`suggested-users ${darkMode && "bgSecondaryDarkMode"}`}>
+          <h4>Suggestions for you</h4>
+          <SuggestedUsers />
+        </div>
       </div>
-    </div>
     </>
   )
 };

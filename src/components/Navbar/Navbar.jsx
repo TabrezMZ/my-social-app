@@ -7,7 +7,7 @@ import './Navbar.css'
 export const Navbar = () => {
   const navigate = useNavigate()
   const { darkMode, setDarkMode, userData, token } = useAuth()
-  const {dataState} = useData()
+  const { dataState } = useData()
   return (
     <>
       <div className={`navbar ${darkMode && "bgDarkmode"}`}>

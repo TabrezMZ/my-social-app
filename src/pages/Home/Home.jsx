@@ -6,23 +6,23 @@ import './Home.css'
 import { getSortedPosts } from "../../Utils/SortPosts";
 
 export const Home = (params) => {
-  const {darkMode, setDarkMode, userData, token} = useAuth()
+  const { darkMode, setDarkMode, userData, token } = useAuth()
   const { dataState } = useData()
-  const [sortByOption , setSortByOption] = useState('latest')
+  const [sortByOption, setSortByOption] = useState('latest')
   const sortOptions = {
-    latest : 'Latest Post',
-    oldest : 'Oldest Post',
-    trending : 'Trending Post'
+    latest: 'Latest Post',
+    oldest: 'Oldest Post',
+    trending: 'Trending Post'
   }
 
   const followingUsers = dataState?.allUsers?.find(
     ({ username }) => username === userData?.username
   )?.following
 
-  const postsOfFollowed = dataState.posts.filter((post)=> post.username == userData.username || followingUsers?.some((eachUser)=> eachUser.username == post.username ))
+  const postsOfFollowed = dataState.posts.filter((post) => post.username == userData.username || followingUsers?.some((eachUser) => eachUser.username == post.username))
 
-  const sortedPosts  =  getSortedPosts(postsOfFollowed, sortByOption)
-  
+  const sortedPosts = getSortedPosts(postsOfFollowed, sortByOption)
+
 
   return (
     <>
